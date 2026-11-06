@@ -100,7 +100,7 @@ var saveAs=saveAs||navigator.msSaveBlob&&navigator.msSaveBlob.bind(navigator)||f
 		<div id="init-lacking">Your browser lacks required capabilities. Please upgrade it or switch to another to continue.</div>
 		<div id="init-loading"><div>Loading&hellip;</div></div>
 	</div>
-	<!-- UUID://BDF4BF48-0036-41F3-95DB-D92F452B6E3F// --><tw-storydata name="The Odd Chorister" startnode="3" creator="Tweego" creator-version="2.1.1+81d1d71" ifid="BDF4BF48-0036-41F3-95DB-D92F452B6E3F" zoom="1" format="SugarCube" format-version="2.30.0" options="" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">@import url('https://fonts.cdnfonts.com/css/reenie-beanie');
+	<!-- UUID://BDF4BF48-0036-41F3-95DB-D92F452B6E3F// --><tw-storydata name="The Odd Chorister" startnode="4" creator="Tweego" creator-version="2.1.1+81d1d71" ifid="BDF4BF48-0036-41F3-95DB-D92F452B6E3F" zoom="1" format="SugarCube" format-version="2.30.0" options="" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">@import url('https://fonts.cdnfonts.com/css/reenie-beanie');
 
 /* --- Global Game Vibe: Plain Black & Bolder White Text --- */
 body {
@@ -184,32 +184,58 @@ p {
   letter-spacing: 1px;
 }
 
-/* --- Link Buttons (No background, dashed border matching font weight) --- */
-a, a.internal, a.external {
+.title-card img {
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+  height: auto;
+}
+
+.title-card .recommend {
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+/* --- Automatic Dashed Buttons for Standard [[Wiki Links]] --- */
+.link-internal {
   display: inline-block;
   color: #ffffff !important;
   font-weight: bold !important;
   text-decoration: none !important;
   background-color: transparent !important;
   
-  /* Dashed border matching the heavy bold font stroke (~2px) */
+  /* Dashed border matching your button style */
   border: 2px dashed #ffffff !important;
   border-radius: 3px;
   
-  /* Comfortable padding to make them look like interactive buttons */
+  /* Comfortable padding and spacing */
   padding: 6px 14px;
   margin: 6px 4px;
   
   transition: all 0.2s ease;
 }
 
-/* Hover State */
-a:hover, a.internal:hover, a.external:hover {
-  background-color: rgba(255, 255, 255, 0.1) !important; /* Extremely subtle highlight on hover */
-  border-color: #ff6b5b !important; /* Shifts to your accent coral color */
+/* Hover State for Text Links */
+.link-internal:hover {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  border-color: #ff6b5b !important;
   color: #ff6b5b !important;
   transform: translateY(-2px);
 }
+
+/* --- Protection for Image Links (Keeps them clean) --- */
+.paper-button a, 
+.paper-button a.link-internal, 
+.paper-button a.link-external {
+  display: inline-block;
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  text-decoration: none !important;
+}
+
+
 
 /* Section Headings inside Passages */
 .story-paper h2, .story-paper h3 {
@@ -276,6 +302,61 @@ a:hover, a.internal:hover, a.external:hover {
   margin-bottom: 20px;
   overflow: hidden;
   transition: all 0.2s ease;
+}
+
+.paper-button {
+  /* Your original paper texture styling */
+  background-color: #f4ecdf;
+  background-image: 
+    linear-gradient(rgba(120, 90, 60, 0.04) 50%, transparent 50%),
+    linear-gradient(90deg, rgba(120, 90, 60, 0.04) 50%, transparent 50%),
+    radial-gradient(circle at center, rgba(255, 255, 255, 0.3) 0%, rgba(110, 80, 50, 0.12) 100%);
+  background-size: 4px 4px, 4px 4px, 100% 100%;
+  width: 100%;
+  max-width: 650px;
+  height: 400px;
+  padding: 20px 35px 25px 35px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4), inset 0 0 35px rgba(100, 70, 40, 0.2);
+  border: 1px solid #d4c5a9;
+  border-radius: 2px;
+  box-sizing: border-box;
+  color: #2b221e;
+  font-family: 'Courier New', Courier, monospace;
+  margin-bottom: 20px;
+  overflow: auto; /* Changed from hidden to auto so scrolling works if grid content exceeds 400px */
+  transition: all 0.2s ease;
+
+  /* Added grid rules for your 3-column layout */
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  justify-items: center;
+  align-items: center;
+}
+
+
+/* --- 3. Image Link & Grid Element Cleanup --- */
+.paper-button a, 
+.paper-button a.internal, 
+.paper-button a.external {
+  display: inline-block;
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  text-decoration: none !important;
+}
+
+.paper-button img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.paper-button a:hover img {
+  transform: scale(1.05);
+  opacity: 0.85;
 }
 
 /* Top Margin Space */
@@ -371,6 +452,24 @@ a:hover, a.internal:hover, a.external:hover {
   background: transparent;
 }
 
+/* --- Remove Border Only Around Chorister Portraits --- */
+.image-row a:has(.chorister-portrait),
+.image-brick-container a:has(.chorister-portrait) {
+  background: transparent !important;
+  border: none !important;
+  text-decoration: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  display: inline-block !important;
+}
+
+/* Ensure no border appears on hover for the wrapper */
+.image-row a:has(.chorister-portrait):hover {
+  background: transparent !important;
+  border: none !important;
+  transform: none;
+}
+
 /* Chorister Portrait Container (using background images) */
 .chorister-portrait {
   width: 65px;
@@ -456,7 +555,34 @@ a:hover, a.internal:hover, a.external:hover {
   pointer-events: auto;
 }
 
+#custom-transition-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #f4ecdf;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 999999;
+    transition: opacity 0.3s ease; /* Smooth transition for both fading in and fading back out */
+}
+
+/* Class applied when the screen fills with white */
+#custom-transition-overlay.flash-white {
+    opacity: 1;
+}
+
+#custom-transition-overlay.fade-black {
+    background-color: #000000;
+    opacity: 1;
+    transition: opacity 0.3s ease-out;
+}
+
 /* --- SugarCube Sidebar Background & Reset --- */
+/*   Only hides the text, keeping the back/forward buttons visible */
+
+
 #ui-bar {
   background-color: #000000 !important;
   border-right: 1px dashed #5c4033 !important;
@@ -465,8 +591,7 @@ a:hover, a.internal:hover, a.external:hover {
 /* --- Hide All SugarCube Built-In Header Elements --- */
 #ui-bar-title,
 #story-title,
-#story-author,
-#ui-bar-history {
+#story-author {
   display: none !important;
 }
 
@@ -620,6 +745,7 @@ a:hover, a.internal:hover, a.external:hover {
     radial-gradient(circle at center, rgba(255, 255, 255, 0.3) 0%, rgba(110, 80, 50, 0.12) 100%);
   background-size: 4px 4px, 4px 4px, 100% 100%;
   max-width: 400px;
+  min-height: 300px;
   margin: 25px auto;
   padding: 20px 25px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6), inset 0 0 25px rgba(100, 70, 40, 0.15);
@@ -649,6 +775,11 @@ a:hover, a.internal:hover, a.external:hover {
     font-size: 36px; /* High recommendation for legibility with this font */
     line-height: 1.4;
     display: inline-block; /* Allows the span to respect the line-height styling */
+}
+
+.notebook-selector {
+    background-color: #f4ecdf; /* Sepia background for the table */
+    
 }
 
 .notebook-table {
@@ -714,7 +845,100 @@ a:hover, a.internal:hover, a.external:hover {
 }
 
 
-</style><script role="script" id="twine-user-script" type="text/twine-javascript"></script><tw-passagedata pid="1" name="StoryCaption" tags="" position="100,100" size="100,100">&lt;&lt;nobr&gt;&gt;
+</style><script role="script" id="twine-user-script" type="text/twine-javascript">$(document).ready(function() {
+    // Ensure the overlay exists in the DOM
+    if ($('#custom-transition-overlay').length === 0) {
+        $('body').append('<div id="custom-transition-overlay"></div>');
+    }
+
+    let pendingPassage = null;
+
+    // 1. Intercept the click and start the quick fade to white
+    $(document).on('click', '.special-transition a, a.special-transition', function(e) {
+        e.preventDefault();
+        pendingPassage = $(this).attr('data-passage') || $(this).attr('href');
+        
+        if (!pendingPassage) return;
+
+        // Trigger the 0.3s CSS fade to white
+        $('#custom-transition-overlay').addClass('flash-white');
+    });
+
+    // 2. Fire Engine.play() the instant the 0.3s white opacity finishes
+    $('#custom-transition-overlay').on('transitionend', function(e) {
+        if (e.originalEvent.propertyName === 'opacity' && $(this).hasClass('flash-white') && pendingPassage) {
+            const targetPassage = pendingPassage;
+            pendingPassage = null; // Reset for next interaction
+
+            // Load the new passage behind the fully opaque white screen
+            Engine.play(targetPassage);
+        }
+    });
+
+    // 3. Fade back out as soon as SugarCube boots the new passage
+    $(document).on(':passagestart', function() {
+        const $overlay = $('#custom-transition-overlay');
+        if ($overlay.hasClass('flash-white')) {
+            setTimeout(function() {
+                $overlay.removeClass('flash-white');
+            }, 50);
+        }
+    });
+});
+
+window.fadeStopAllAudio = function (duration) {
+  var fadeTime = typeof duration === "number" ? duration : 3;
+  var trackIds = ["main_theme", "footsteps", "knocks", "bell", "whoosh", "tap", "waltz", "waltz2", "bell_swirl"];
+  
+  var activeTracks = [];
+
+  trackIds.forEach(function (id) {
+    var track = SimpleAudio.tracks.get(id);
+    if (track && track.isPlaying()) {
+      activeTracks.push(track);
+      track.fade(fadeTime, 0);
+    } 
+  });
+
+  setTimeout(function () {
+    activeTracks.forEach(function (track) {
+      track.stop();
+      track.volume(1);
+    });
+  }, fadeTime * 1000);
+};</script><tw-passagedata pid="1" name="StoryWidgets" tags="widget" position="100,100" size="100,100">&lt;&lt;widget &quot;playbgm&quot;&gt;&gt;
+    &lt;&lt;nobr&gt;&gt;
+    &lt;&lt;if SimpleAudio &amp;&amp; SimpleAudio.tracks &amp;&amp; SimpleAudio.tracks.has($args[0])&gt;&gt;
+        &lt;&lt;audio $args[0] loop play&gt;&gt;
+    &lt;&lt;/if&gt;&gt;
+    &lt;&lt;/nobr&gt;&gt;
+&lt;&lt;/widget&gt;&gt;
+
+&lt;&lt;widget &quot;playsfx&quot;&gt;&gt;
+    &lt;&lt;nobr&gt;&gt;
+    &lt;&lt;if SimpleAudio &amp;&amp; SimpleAudio.tracks &amp;&amp; SimpleAudio.tracks.has($args[0])&gt;&gt;
+        &lt;&lt;audio $args[0] play&gt;&gt;
+    &lt;&lt;/if&gt;&gt;
+    &lt;&lt;/nobr&gt;&gt;
+&lt;&lt;/widget&gt;&gt;
+
+&lt;&lt;widget &quot;stopsfx&quot;&gt;&gt;
+    &lt;&lt;nobr&gt;&gt;
+    &lt;&lt;if $args[0] is &quot;:all&quot; or (SimpleAudio &amp;&amp; SimpleAudio.tracks &amp;&amp; SimpleAudio.tracks.has($args[0]))&gt;&gt;
+        &lt;&lt;audio $args[0] stop&gt;&gt;
+    &lt;&lt;/if&gt;&gt;
+    &lt;&lt;/nobr&gt;&gt;
+&lt;&lt;/widget&gt;&gt;
+
+&lt;&lt;widget &quot;fadestopall&quot;&gt;&gt;
+  &lt;&lt;nobr&gt;&gt;
+  &lt;&lt;if $args.length &gt; 0&gt;&gt;
+    &lt;&lt;run fadeStopAllAudio($args[0])&gt;&gt;
+  &lt;&lt;else&gt;&gt;
+    &lt;&lt;run fadeStopAllAudio(3)&gt;&gt;
+  &lt;&lt;/if&gt;&gt;
+  &lt;&lt;/nobr&gt;&gt;
+&lt;&lt;/widget&gt;&gt;</tw-passagedata><tw-passagedata pid="2" name="StoryCaption" tags="" position="225,100" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;div class=&quot;sidebar-caption&quot;&gt;
   &lt;&lt;set $iconClass = &quot;&quot;&gt;&gt;
   &lt;!-- Header: Icon + Title --&gt;
@@ -737,7 +961,8 @@ a:hover, a.internal:hover, a.external:hover {
     &lt;span class=&quot;sidebar-label&quot;&gt;Chorister&lt;/span&gt;
     &lt;div class=&quot;sidebar-value&quot;&gt;
       &lt;&lt;if $character.name isnot &quot;&quot;&gt;&gt;
-        &lt;&lt;= $character.name&gt;&gt;
+        &lt;&lt;= $character.name&gt;&gt;&lt;br&gt;
+        &lt;em class=&quot;sidebar-empty&quot;&gt;&lt;&lt;= $progress&gt;&gt;&lt;/em&gt;
       &lt;&lt;else&gt;&gt;
         &lt;em class=&quot;sidebar-empty&quot;&gt;Unselected&lt;/em&gt;
       &lt;&lt;/if&gt;&gt;
@@ -770,7 +995,7 @@ a:hover, a.internal:hover, a.external:hover {
   &lt;/div&gt;
 
 &lt;/div&gt;
-&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="2" name="Backpack" tags="" position="225,100" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="3" name="Backpack" tags="" position="350,100" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;switch $backpack_item&gt;&gt;
   &lt;&lt;case &quot;Schedule&quot;&gt;&gt;
     &lt;div class=&quot;backpack-item&quot;&gt;
@@ -851,12 +1076,22 @@ a:hover, a.internal:hover, a.external:hover {
 
 &lt;&lt;/switch&gt;&gt;
 &lt;br&gt;
-[[Return to the story|$progress]]
-&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="3" name="Init" tags="" position="350,100" size="100,100">&lt;&lt;nobr&gt;&gt;
+[[Return to the story|Progress check]]
+&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="4" name="Init" tags="" position="475,100" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;&lt;cacheaudio &quot;main_theme&quot; &quot;audio/main_theme.mp3&quot;&gt;&gt;
+&lt;&lt;cacheaudio &quot;footsteps&quot; &quot;audio/footsteps.mp3&quot;&gt;&gt;
+&lt;&lt;cacheaudio &quot;knocks&quot; &quot;audio/knocks.mp3&quot;&gt;&gt;
+&lt;&lt;cacheaudio &quot;bell&quot; &quot;audio/bell.mp3&quot;&gt;&gt;
+&lt;&lt;cacheaudio &quot;whoosh&quot; &quot;audio/whoosh.mp3&quot;&gt;&gt;
+&lt;&lt;cacheaudio &quot;tap&quot; &quot;audio/baton_tap.ogg&quot;&gt;&gt;
+&lt;&lt;cacheaudio &quot;waltz&quot; &quot;audio/waltz.mp3&quot;&gt;&gt;
+&lt;&lt;cacheaudio &quot;waltz2&quot; &quot;audio/waltz2.mp3&quot;&gt;&gt;
+&lt;&lt;cacheaudio &quot;bell_swirl&quot; &quot;audio/bell_swirl.mp3&quot;&gt;&gt;
+
 &lt;&lt;set $character = {name: &quot;&quot;, voice: &quot;&quot;, description: &quot;&quot;, id: -1}&gt;&gt;
 &lt;&lt;set $character_list = [
     {name: &quot;Lex&quot;, voice: &quot;Tenor&quot;, description: &quot;A quiet student with a good ear for listening.&quot;, id: 0},
-    {name: &quot;Jim&quot;, voice: &quot;Tenor&quot;, description: &quot;The best dancer in the chorus, second only to possibly Jax.&quot;, id: 1},
+    {name: &quot;John&quot;, voice: &quot;Tenor&quot;, description: &quot;The best dancer in the chorus, second only to possibly Jax.&quot;, id: 1},
     {name: &quot;Jax&quot;, voice: &quot;Tenor&quot;, description: &quot;A dynamic student with a flair for the dramatic.&quot;, id: 2},
     {name: &quot;Jeremiah&quot;, voice: &quot;Baritone&quot;, description: &quot;A leader in chorus, Jeremiah is known for his strong sense of responsibility and his ability to motivate others.&quot;, id: 3},
     {name: &quot;Brad&quot;, voice: &quot;Baritone&quot;, description: &quot;The strongest student in the chorus, Brad often works out before school. And after school.  And sometimes during school.&quot;, id: 4},
@@ -869,7 +1104,8 @@ a:hover, a.internal:hover, a.external:hover {
     ]&gt;&gt;
 &lt;&lt;set $inventory = [&quot;Schedule&quot;, &quot;Sticky-note Pad&quot;, &quot;Pencil&quot;]&gt;&gt;
 &lt;&lt;set $progress = &quot;1-1&quot;&gt;&gt;
-&lt;&lt;set $progress_limiter = 2.2&gt;&gt;
+&lt;&lt;set $chapter_list = [&quot;1-1&quot;, &quot;1-2&quot;, &quot;1-3&quot;, &quot;2-1&quot;, &quot;2-2&quot;, &quot;3-1&quot;, &quot;3-2&quot;, &quot;3-3&quot;, &quot;3-4&quot;, &quot;3-5&quot;, &quot;3-6&quot;]&gt;&gt;
+&lt;&lt;set $progress_limiter = 3.6&gt;&gt;
 &lt;&lt;set $backpack_item = &quot;&quot;&gt;&gt;
 &lt;&lt;set $notebook = [
   {term: &quot;Crescendo&quot;, definition: &quot;Gradually louder&quot;, symbol: &quot;images/Crescendo.png&quot;, isunlocked: false},
@@ -877,7 +1113,7 @@ a:hover, a.internal:hover, a.external:hover {
   {term: &quot;Accelerando&quot;, definition: &quot;Gradually faster&quot;, symbol: &quot;images/Accelerando.png&quot;, isunlocked: false},
   {term: &quot;Ritardando&quot;, definition: &quot;Gradually slower&quot;, symbol: &quot;images/Ritardando.png&quot;, isunlocked: false},
   {term: &quot;Fermata&quot;, definition: &quot;Hold the note for longer than its normal value&quot;, symbol: &quot;images/Fermata.png&quot;, isunlocked: false},
-  {term: &quot;Repeat Sign&quot;, definition: &quot;Return to the beginning or previous repeat sign at the beginning of the section&quot;, symbol: &quot;images/Repeats.png&quot;, isunlocked: false},
+  {term: &quot;Repeat Signs&quot;, definition: &quot;Return to the beginning or previous repeat sign at the beginning of the section&quot;, symbol: &quot;images/Repeats.png&quot;, isunlocked: false},
   {term: &quot;Da Capo (D.C.)&quot;, definition: &quot;Return to the beginning of the piece&quot;, symbol: &quot;images/DC.png&quot;, isunlocked: false},
   {term: &quot;Dal Segno (D.S.)&quot;, definition: &quot;Return to the sign&quot;, symbol: &quot;images/DS.png&quot;, isunlocked: false},
   {term: &quot;Fine&quot;, definition: &quot;The end of the piece&quot;, symbol: &quot;images/Fine.png&quot;, isunlocked: false},
@@ -890,20 +1126,45 @@ a:hover, a.internal:hover, a.external:hover {
   &lt;div class=&quot;title-card&quot;&gt;
     &lt;h1&gt;The Odd Chorister&lt;/h1&gt;
     &lt;span class=&quot;subtitle&quot;&gt;Interactive Fiction for the Hopewell JHS Cambiata Chorus&lt;/span&gt;
+    &lt;img src=&quot;images/headphones.png&quot;&gt;
+    &lt;span class=&quot;recommend&quot;&gt;Headphones Recommended&lt;/span&gt;
   &lt;/div&gt;
 
+&lt;&lt;waitforaudio&gt;&gt;
+
   &lt;div class=&quot;title-menu&quot;&gt;
-    [[Choose your character|Character Selection]]
+    [[Character Selection]]
     [[Test]]
   &lt;/div&gt;
 &lt;/div&gt;
-&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="4" name="Test" tags="" position="475,100" size="100,100">&lt;&lt;button &quot;Unlock notebook&quot;&gt;&gt;
+&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="5" name="Test" tags="" position="600,100" size="100,100">&lt;&lt;nobr&gt;&gt;
   &lt;&lt;for _i = 0; _i &lt; $notebook.length; _i++&gt;&gt;
     &lt;&lt;set $notebook[_i].isunlocked = true&gt;&gt;
   &lt;&lt;/for&gt;&gt;
-  &lt;&lt;set $backpack_item = &quot;Music Binder&quot;&gt;&gt;
-  &lt;&lt;goto &quot;Backpack&quot;&gt;&gt;
-&lt;&lt;/button&gt;&gt;</tw-passagedata><tw-passagedata pid="5" name="Character Selection" tags="" position="600,100" size="100,100">&lt;&lt;nobr&gt;&gt;
+
+  &lt;&lt;set $inventory.push(&quot;Music Binder&quot;)&gt;&gt;
+
+Choose a chapter: 
+&lt;&lt;for _i = 0; _i &lt; $chapter_list.length; _i++&gt;&gt;
+  &lt;&lt;capture _i&gt;&gt;
+    &lt;&lt;button $chapter_list[_i]&gt;&gt;
+      &lt;&lt;if $character.name === &quot;&quot;&gt;&gt;
+        &lt;&lt;set _roll = random(0,10)&gt;&gt;
+        &lt;&lt;set $character = $character_list[_roll]&gt;&gt;
+        &lt;&lt;if _roll === 10&gt;&gt;
+          &lt;&lt;set _roll--&gt;&gt;
+        &lt;&lt;else&gt;&gt;
+          &lt;&lt;set _roll++&gt;&gt;
+        &lt;&lt;/if&gt;&gt;
+        &lt;&lt;set $friend = $character_list[_roll]&gt;&gt;
+      &lt;&lt;/if&gt;&gt;
+      &lt;&lt;set $progress = $chapter_list[_i]&gt;&gt;
+      &lt;&lt;goto $chapter_list[_i]&gt;&gt;
+    &lt;&lt;/button&gt;&gt;
+  &lt;&lt;/capture&gt;&gt;
+&lt;&lt;/for&gt;&gt;
+&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="6" name="Character Selection" tags="" position="725,100" size="100,100">&lt;&lt;nobr&gt;&gt;
+  &lt;&lt;playbgm &quot;main_theme&quot;&gt;&gt;
 &lt;!-- Fade Overlay Element --&gt;
 &lt;div id=&quot;screen-fade&quot;&gt;&lt;/div&gt;
 
@@ -1010,11 +1271,24 @@ a:hover, a.internal:hover, a.external:hover {
     &lt;&lt;/button&gt;&gt;
   &lt;/div&gt;
 &lt;/div&gt;
-&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="6" name="1-1" tags="" position="725,100" size="100,100">&lt;&lt;if $character.name === &quot;&quot;&gt;&gt; \
-  &lt;&lt;goto &quot;Character Selection&quot;&gt;&gt; \
-&lt;&lt;/if&gt;&gt; \
-&lt;div class=&quot;story-paper typewriter-text&quot;&gt;
+&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="7" name="Progress check" tags="" position="850,100" size="100,100">&lt;&lt;set _parts = $progress.split(&#39;-&#39;)&gt;&gt;
+&lt;&lt;set _progress_num = Number(_parts[0] + &quot;.&quot; + _parts[1])&gt;&gt;
+&lt;&lt;if _progress_num &gt; $progress_limiter&gt;&gt;
+  &lt;&lt;goto &quot;To be continued&quot;&gt;&gt;
+&lt;&lt;else&gt;&gt;
+  &lt;&lt;goto $progress&gt;&gt;
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="8" name="To be continued" tags="" position="975,100" size="100,100">&lt;div class=&quot;story-paper typewriter-text&quot;&gt;
+  &lt;div class=&quot;title-card&quot;&gt;
+    &lt;h1&gt;To Be Continued&lt;/h1&gt;
+    &lt;span class=&quot;subtitle&quot;&gt;Check out your music notebook to see what terms you&#39;ve unlocked!&lt;/span&gt;
+  &lt;/div&gt;
 
+  &lt;&lt;link &quot;Music Binder Notebook&quot;&gt;&gt;
+    &lt;&lt;set $backpack_item = &quot;Music Binder&quot;&gt;&gt;
+    &lt;&lt;goto &quot;Backpack&quot;&gt;&gt;
+  &lt;&lt;/link&gt;&gt;
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="9" name="1-1" tags="" position="1100,100" size="100,100">&lt;&lt;fadestopall&gt;&gt; \
+&lt;div class=&quot;story-paper typewriter-text&quot;&gt;
   &lt;div class=&quot;title-card&quot;&gt;
     &lt;h1&gt;Chapter 1&lt;/h1&gt;
     &lt;span class=&quot;subtitle&quot;&gt;Late to class&lt;/span&gt;
@@ -1026,32 +1300,39 @@ a:hover, a.internal:hover, a.external:hover {
 
   [[Run to class]]
 
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="7" name="Run to class" tags="" position="850,100" size="100,100">Your footsteps echo down the silent, empty hall.  With every other class in full swing, you would expect to hear something - teachers lecturing, students asking questions, maybe even see a classmate taking a trip on the hall pass.  Instead, a spooky solitude deepens as you wind your way to the music hall.
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="10" name="Run to class" tags="" position="1225,100" size="100,100">&lt;&lt;playsfx &quot;footsteps&quot;&gt;&gt; \
+Your footsteps echo down the silent, empty hall.  With every other class in full swing, you would expect to hear something - teachers lecturing, students asking questions, maybe even see a classmate taking a trip on the hall pass.  Instead, a spooky solitude deepens as you wind your way to the music hall.
 
 Even here, where the sounds of band instruments and student voices usually drown out the rest of the building, you find it eerily quiet.
 
 The Chorus Room door is closed in front of you.
 
-&lt;&lt;set $knocks = 0&gt;&gt;\
+&lt;&lt;set $knocks = 0&gt;&gt; \
 [[Knock on the door]]
 [[Open the door]]
-[[Investigate the hall]]</tw-passagedata><tw-passagedata pid="8" name="Investigate the hall" tags="" position="975,100" size="100,100">Students&#39; books and pencil cases are placed neatly against the wall in the music hallway.  A lunch box sits open by the Chorus Room door.
+[[Investigate the hall]]</tw-passagedata><tw-passagedata pid="11" name="Investigate the hall" tags="" position="100,225" size="100,100">&lt;&lt;stopsfx &quot;:all&quot;&gt;&gt; \
+Students&#39; books and pencil cases are placed neatly against the wall in the music hallway.  A lunch box sits open by the Chorus Room door.
 
 [[Knock on the door]] 
 [[Open the door]] 
-[[Search the lunchbox]]</tw-passagedata><tw-passagedata pid="9" name="Knock on the door" tags="" position="1100,100" size="100,100">&lt;&lt;set $knocks++&gt;&gt; \
+[[Search the lunchbox]]</tw-passagedata><tw-passagedata pid="12" name="Knock on the door" tags="" position="225,225" size="100,100">&lt;&lt;nobr&gt;&gt;
+  &lt;&lt;stopsfx &quot;:all&quot;&gt;&gt;
+  &lt;&lt;playsfx &quot;knocks&quot;&gt;&gt;
+  &lt;&lt;set $knocks++&gt;&gt;
+&lt;&lt;/nobr&gt;&gt;
 You reach up to knock on the wooden door, but you find your knuckles landing softly on a typewritten sticky-note.  &lt;&lt;if $knocks &gt; 1&gt;&gt;Looking closer, you notice some scribbled handwriting below the message.  The last part almost seemed to be dashed onto the note in secret.&lt;&lt;/if&gt;&gt;
 
 &lt;div class=&quot;sepia-note&quot;&gt;
-CLASS IN SESSION
-DO NOT ENTER
-&lt;&lt;if $knocks &gt; 1&gt;&gt; \
-  &lt;span class=&quot;handwriting&quot;&gt;(without snackies)&lt;/span&gt;
-&lt;&lt;/if&gt;&gt; \
+  CLASS IN SESSION
+  DO NOT ENTER
+  &lt;&lt;if $knocks &gt; 1&gt;&gt; 
+    &lt;span class=&quot;handwriting&quot;&gt;(unless you have snackies)&lt;/span&gt;
+  &lt;&lt;/if&gt;&gt;
 &lt;/div&gt;
 
 [[Investigate the hall]] 
-[[Open the door]]</tw-passagedata><tw-passagedata pid="10" name="Open the door" tags="" position="1225,100" size="100,100">The Chorus Room door opens slowly as a sliver of light falls on the tile floor of the hallway.  Funny, you didn&#39;t realize the lights were so dim in the music hall today.  A bald, shrewd face appears with an expectant, hungry look.
+[[Open the door]]</tw-passagedata><tw-passagedata pid="13" name="Open the door" tags="" position="350,225" size="100,100">&lt;&lt;stopsfx &quot;:all&quot;&gt;&gt; \
+The Chorus Room door opens slowly as a sliver of light falls on the tile floor of the hallway.  Funny, you didn&#39;t realize the lights were so dim in the music hall today.  A bald, shrewd face appears with an expectant, hungry look.
 
 &quot;Can I help you?  Or rather, can &lt;em&gt;you&lt;/em&gt; help &lt;em&gt;me?&quot;&lt;/em&gt;
 
@@ -1066,7 +1347,7 @@ You stand there, empty handed.  After a moment of awkward silence, the door clos
 
 [[Investigate the hall]] 
 [[Knock on the door]] 
-&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="11" name="Search the lunchbox" tags="" position="100,225" size="100,100">The lunchbox is sitting upright, opened.  The tag on the lunchbox reads &quot;JED&quot; in all capital lettering.  
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="14" name="Search the lunchbox" tags="" position="475,225" size="100,100">The lunchbox is sitting upright, opened.  The tag on the lunchbox reads &quot;JED&quot; in all capital lettering.  
 
 &lt;&lt;if $character.name === &quot;Ned&quot;&gt;&gt; \
   &lt;em&gt;My twin brother, Jed?  Must&#39;ve left it here after band class.  Let&#39;s see what we&#39;ve got here...&lt;/em&gt;
@@ -1087,12 +1368,12 @@ You stand there, empty handed.  After a moment of awkward silence, the door clos
   &lt;&lt;set $inventory.push(&quot;Pretzels&quot;)&gt;&gt;\
   [[Open the door]] 
   [[Knock on the door]]
-&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="12" name="1-2" tags="" position="225,225" size="100,100">&lt;&lt;nobr&gt;&gt;
-&lt;&lt;set $progress = &quot;1-2&quot;&gt;&gt;
-&lt;&lt;set _index = $inventory.indexOf(&quot;Pretzels&quot;)&gt;&gt;
-&lt;&lt;if _index &gt;= 0&gt;&gt;
-    &lt;&lt;run $inventory.splice(_index, 1)&gt;&gt;
-&lt;&lt;/if&gt;&gt;
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="15" name="1-2" tags="" position="600,225" size="100,100">&lt;&lt;nobr&gt;&gt;
+  &lt;&lt;set $progress = &quot;1-2&quot;&gt;&gt;
+  &lt;&lt;set _index = $inventory.indexOf(&quot;Pretzels&quot;)&gt;&gt;
+  &lt;&lt;if _index &gt;= 0&gt;&gt;
+      &lt;&lt;run $inventory.splice(_index, 1)&gt;&gt;
+  &lt;&lt;/if&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;
 Stepping into the familiar, carpetted room, the door closes quickly behind you.  As you turn back in surprise, you see Mr. Coop tossing the now empty snack bag into the trash beside his desk.  His lips set in a determined line, his attention returns to the class.
 
@@ -1103,7 +1384,7 @@ Stepping into the familiar, carpetted room, the door closes quickly behind you. 
 &lt;&lt;if $inventory.includes(&quot;Music Binder&quot;)&gt;&gt; \
 &lt;&lt;else&gt;&gt; \
   [[Gather your music]]
-&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="13" name="Find your seat" tags="" position="350,225" size="100,100">&lt;&lt;if $character.id &lt; 6&gt;&gt; \
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="16" name="Find your seat" tags="" position="725,225" size="100,100">&lt;&lt;if $character.id &lt; 6&gt;&gt; \
   You find your seat in the second row, climbing the riser to get into position.
 &lt;&lt;else&gt;&gt; \
   You find your seat in the first row, passing your classmates standing in position.
@@ -1120,7 +1401,7 @@ Stepping into the familiar, carpetted room, the door closes quickly behind you. 
 
   [[Gather your music]]
   [[Chat with a friend]]
-&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="14" name="Gather your music" tags="" position="475,225" size="100,100">Approaching the slotted cabinet, you search the shelves for your music binder.  You have reached for the binder in the same spot every single day this school year, and yet at this time it seems that the memorable path your hands take toward your spot is hesitant, almost confused.  The dimensions of the cabinet seem off, as if the scale of the cabinet had somehow changed.  The handwritten numbers taped to the slots are in disarray.  Some of the numbers don&#39;t even look like numerals.  It&#39;s as if the cabinet had been replaced with a poorly remembered description of itself.
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="17" name="Gather your music" tags="" position="850,225" size="100,100">Approaching the slotted cabinet, you search the shelves for your music binder.  You have reached for the binder in the same spot every single day this school year, and yet at this time it seems that the memorable path your hands take toward your spot is hesitant, almost confused.  The dimensions of the cabinet seem off, as if the scale of the cabinet had somehow changed.  The handwritten numbers taped to the slots are in disarray.  Some of the numbers don&#39;t even look like numerals.  It&#39;s as if the cabinet had been replaced with a poorly remembered description of itself.
 
 &lt;em&gt;&quot;Ahem.&quot;&lt;/em&gt;  Mr. Coop clears his throat from the director&#39;s podium.  Your classmates all stare in your direction, expressions of irritation obvious on their faces.
 
@@ -1130,7 +1411,7 @@ Your look of confusion is caught by Mr. Coop as he dismissively waves his hand. 
 
 &lt;&lt;set $inventory.push(&quot;Music Binder&quot;)&gt;&gt; \
 [[Find your seat]]
-[[Chat with a friend]]</tw-passagedata><tw-passagedata pid="15" name="Chat with a friend" tags="" position="600,225" size="100,100">You approach your friend, &lt;&lt;= $friend.name&gt;&gt;, sitting upright at their chair with music in hand.  You greet them with a warm smile, but you get nothing in return.  &lt;&lt;= $friend.name&gt;&gt;&#39;s eyes are fixed on the sheet music in their hands, as they scan the page for instructions.  You&#39;ve never seen them so concerned with the music before, especially on sight-reading day.
+[[Chat with a friend]]</tw-passagedata><tw-passagedata pid="18" name="Chat with a friend" tags="" position="975,225" size="100,100">You approach your friend, &lt;&lt;= $friend.name&gt;&gt;, sitting upright at their chair with music in hand.  You greet them with a warm smile, but you get nothing in return.  &lt;&lt;= $friend.name&gt;&gt;&#39;s eyes are fixed on the sheet music in their hands, as they scan the page for instructions.  You&#39;ve never seen them so concerned with the music before, especially on sight-reading day.
 
 When it&#39;s obvious they are not going to acknowledge you, you feel a mix of disappointment and curiosity.  You decide to wait for a moment, watching them as they continue to study the sheet music, before gently tapping their shoulder to get their attention.
 
@@ -1143,7 +1424,7 @@ A crisp hand clap at the front of the room brings all of the students&#39; atten
 [[Find your seat]]
 &lt;&lt;if not $inventory.includes(&quot;Music Binder&quot;)&gt;&gt; \
   [[Gather your music]]
-&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="16" name="1-3" tags="" position="725,225" size="100,100">&lt;&lt;set $progress = &quot;1-3&quot;&gt;&gt; \
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="19" name="1-3" tags="" position="1100,225" size="100,100">&lt;&lt;set $progress = &quot;1-3&quot;&gt;&gt; \
 You open the binder and pull out the new music.  The type setting is clean and precise, but the symbols and images are unfamiliar.  The lines intersect in ways you&#39;d never seen before.
 
 All at once, Mr. Coop begins swiping his arms across the air above the podium.  His gestures grow more deliberate and grandiose, with extension reaching toward the room of choristers.
@@ -1154,31 +1435,31 @@ Frantically, you scan your sheet music for some sense of instruction to cut thro
 
 [[Investigate music]]
 [[Take a chance and begin singing loudly]]
-[[Join the choristers in silence]]</tw-passagedata><tw-passagedata pid="17" name="Investigate music" tags="" position="850,225" size="100,100">Staring intently into the sheet music, you finally see a pattern emerge.  As the lines travel from the left side of the page to the right, the angles become wider and further apart.  An instruction returns to the front of your mind.  &lt;em&gt;Crescendo,&lt;/em&gt; you think.  &lt;em&gt;Louder.  Gradually.&lt;/em&gt;
+[[Join the choristers in silence]]</tw-passagedata><tw-passagedata pid="20" name="Investigate music" tags="" position="1225,225" size="100,100">Staring intently into the sheet music, you finally see a pattern emerge.  As the lines travel from the left side of the page to the right, the angles become wider and further apart.  An instruction returns to the front of your mind.  &lt;em&gt;Crescendo,&lt;/em&gt; you think.  &lt;em&gt;Louder.  Gradually.&lt;/em&gt;
 
 [[Begin singing softly]]
 [[Take a chance and begin singing loudly]]
-[[Join the choristers in silence]]</tw-passagedata><tw-passagedata pid="18" name="Take a chance and begin singing loudly" tags="" position="975,225" size="100,100">As Mr. Coop raises both arms over his head for what seems like the largest downbeat of your choir career, you let loose the strongest &lt;em&gt;fortissimo&lt;/em&gt; that your &lt;&lt;= $character.voice&gt;&gt; voice can produce.
+[[Join the choristers in silence]]</tw-passagedata><tw-passagedata pid="21" name="Take a chance and begin singing loudly" tags="" position="100,350" size="100,100">As Mr. Coop raises both arms over his head for what seems like the largest downbeat of your choir career, you let loose the strongest &lt;em&gt;fortissimo&lt;/em&gt; that your &lt;&lt;= $character.voice&gt;&gt; voice can produce.
 
 He freezes in position, then suddenly slumps into a defeated slouch.  &quot;No, I&#39;m afraid that&#39;s not it.  Let&#39;s try again.&quot;
 
 He cracks his knuckles, the sound echoing sharply in the otherwise silent room.  His hands rise again, trembling with nervous energy.  Your classmates stand, alert, unnervingly silent.
 
-[[Begin rehearsal|1-3]]</tw-passagedata><tw-passagedata pid="19" name="Join the choristers in silence" tags="" position="1100,225" size="100,100">Folding to your classmates&#39; obvious wishes, you join them in complete silence.  Mr. Coop&#39;s gestures continue to grow more and more intense.  You realize from the corner of your vision that your classmates are indeed mouthing the words to the music printed in your hands.  It just feels like they are missing some important instruction that would allow them to meet the director&#39;s intended expression.
+[[Begin rehearsal|1-3]]</tw-passagedata><tw-passagedata pid="22" name="Join the choristers in silence" tags="" position="225,350" size="100,100">Folding to your classmates&#39; obvious wishes, you join them in complete silence.  Mr. Coop&#39;s gestures continue to grow more and more intense.  You realize from the corner of your vision that your classmates are indeed mouthing the words to the music printed in your hands.  It just feels like they are missing some important instruction that would allow them to meet the director&#39;s intended expression.
 
 Finally, Mr. Coop lowers his arms.  &quot;That&#39;s almost right,&quot; he says softly to himself.
 
 &lt;em&gt;What?  How can that be even remotely correct?&lt;/em&gt;  You look down at your music again.  &lt;em&gt;Is there some clue in here that I&#39;ve missed?&lt;/em&gt;
 
-[[Begin rehearsal|1-3]]</tw-passagedata><tw-passagedata pid="20" name="Begin singing softly" tags="" position="1225,225" size="100,100">Your voice resonates, softly at first.  Your pitch settles into a pleasant &lt;em&gt;mezzo-piano&lt;/em&gt; melody, adding warmth as the phrase continues.  Your classmates stare at you in awe, looks of understanding slowly creeping into their expressions.
+[[Begin rehearsal|1-3]]</tw-passagedata><tw-passagedata pid="23" name="Begin singing softly" tags="" position="350,350" size="100,100">Your voice resonates, softly at first.  Your pitch settles into a pleasant &lt;em&gt;mezzo-piano&lt;/em&gt; melody, adding warmth as the phrase continues.  Your classmates stare at you in awe, looks of understanding slowly creeping into their expressions.
 
 [[Gradually get louder]]
 [[Gradually get softer]]
-[[Take a chance and begin singing loudly]]</tw-passagedata><tw-passagedata pid="21" name="Gradually get softer" tags="" position="100,350" size="100,100">Just as your classmates begin following your lead, you pull back on your volume.  Your fellow choristers feel the support of your voice waning and begin to falter.  As the deep silence returns to the classroom, Mr. Coop abruptly drops his arms.
+[[Take a chance and begin singing loudly]]</tw-passagedata><tw-passagedata pid="24" name="Gradually get softer" tags="" position="475,350" size="100,100">Just as your classmates begin following your lead, you pull back on your volume.  Your fellow choristers feel the support of your voice waning and begin to falter.  As the deep silence returns to the classroom, Mr. Coop abruptly drops his arms.
 
 &quot;So close.  Let&#39;s try again.&quot;
 
-[[Begin rehearsal|1-3]]</tw-passagedata><tw-passagedata pid="22" name="Gradually get louder" tags="" position="225,350" size="100,100">Emboldened by your classmates&#39; support, you catch a breath and increase your volume.  The intensity of your voice swells, joining with the harmonies of your fellow choristers.  Mr. Coop&#39;s eyes widen, and he nods approvingly, his hands finally matching the pace of your &lt;em&gt;crescendo.&lt;/em&gt;
+[[Begin rehearsal|1-3]]</tw-passagedata><tw-passagedata pid="25" name="Gradually get louder" tags="" position="600,350" size="100,100">Emboldened by your classmates&#39; support, you catch a breath and increase your volume.  The intensity of your voice swells, joining with the harmonies of your fellow choristers.  Mr. Coop&#39;s eyes widen, and he nods approvingly, his hands finally matching the pace of your &lt;em&gt;crescendo.&lt;/em&gt;
 
 With a flick of his wrists, Mr. Coop signals the end of the phrase, concluding the performance.  He glances down at his score to check the instructions once again.
 
@@ -1186,7 +1467,9 @@ With a flick of his wrists, Mr. Coop signals the end of the phrase, concluding t
 
 You feel a relieved smile spread across your face, until, all at once, each student&#39;s music binder shuts with a resounding &lt;em&gt;slap&lt;/em&gt;.  You turn to &lt;&lt;= $friend.name&gt;&gt; with a questioning look, but all you receive in return is a glassy-eyed stare.
 
-[[Lunch Bell|2-1]]</tw-passagedata><tw-passagedata pid="23" name="2-1" tags="" position="350,350" size="100,100">&lt;&lt;if $inventory.includes(&quot;Hot Dogs&quot;)&gt;&gt; \
+@@.special-transition;[[Lunch Bell|2-1]]@@</tw-passagedata><tw-passagedata pid="26" name="2-1" tags="" position="725,350" size="100,100">&lt;&lt;playsfx &quot;whoosh&quot;&gt;&gt; \
+&lt;&lt;playsfx &quot;bell&quot;&gt;&gt; \
+&lt;&lt;if $inventory.includes(&quot;Hot Dogs&quot;)&gt;&gt; \
 &lt;&lt;else&gt;&gt; \
   &lt;&lt;set $inventory.push(&quot;Hot Dogs&quot;)&gt;&gt; \
 &lt;&lt;/if&gt;&gt; \
@@ -1207,16 +1490,16 @@ You feel a relieved smile spread across your face, until, all at once, each stud
 
   &quot;Well?&quot; asks &lt;&lt;= $friend.name&gt;&gt;, their eyes fixed on you with an expectant look.
 
-  You spin back around to lock eyes once again with your friend.  &quot;I said, &#39;Are you gonna eat that?&#39;&quot;
+  You spin back around to see your friend, waiting for a response from you.  &quot;I said, &#39;Are you gonna eat that?&#39;&quot;
 
   [[Give them some food]]
   [[Eat some food]]
   [[Ask about rehearsal|2-2]]
 
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="24" name="Eat some food" tags="" position="475,350" size="100,100">You pick up your lunch and prepare to dig in.  &lt;&lt;= $friend.name&gt;&gt; watches with a desperate look.  You know they are hungry, and you also know they are too polite to stop you from eating in front of them.  But there&#39;s something about that wild, hungry look in their eyes that makes it all seem so much more... important.
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="27" name="Eat some food" tags="" position="850,350" size="100,100">You pick up your lunch and prepare to dig in.  &lt;&lt;= $friend.name&gt;&gt; watches with a desperate look.  You know they are hungry, and you also know they are too polite to stop you from eating in front of them.  But there&#39;s something about that wild, hungry look in their eyes that makes it all seem so much more... important.
 
 [[Give them some food]]
-[[Ask about rehearsal|2-2]]</tw-passagedata><tw-passagedata pid="25" name="Give them some food" tags="" position="600,350" size="100,100">&lt;&lt;nobr&gt;&gt;
+[[Ask about rehearsal|2-2]]</tw-passagedata><tw-passagedata pid="28" name="Give them some food" tags="" position="975,350" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;set _index = $inventory.indexOf(&quot;Hot Dogs&quot;)&gt;&gt;
 &lt;&lt;if _index &gt;= 0&gt;&gt;
     &lt;&lt;run $inventory.splice(_index, 1)&gt;&gt;
@@ -1226,7 +1509,7 @@ You take half of your lunch and place it on an empty napkin on your table.  &lt;
 
 You take a bite of your own food and chew thoughtfully.  &lt;em&gt;That was a weird class, wasn&#39;t it?  And how did I even get here?&lt;/em&gt;
 
-[[Ask about rehearsal|2-2]]</tw-passagedata><tw-passagedata pid="26" name="2-2" tags="" position="725,350" size="100,100">&lt;&lt;set $progress = &quot;2-2&quot;&gt;&gt; \
+[[Ask about rehearsal|2-2]]</tw-passagedata><tw-passagedata pid="29" name="2-2" tags="" position="1100,350" size="100,100">&lt;&lt;set $progress = &quot;2-2&quot;&gt;&gt; \
 &quot;Is everything okay with you?&quot; you ask, worried.
 
 &lt;&lt;if $inventory.includes(&quot;Hot Dogs&quot;)&gt;&gt; \
@@ -1241,18 +1524,18 @@ You take a bite of your own food and chew thoughtfully.  &lt;em&gt;That was a we
 
   You stop to chew your food, thinking back on the lesson.  It was different.  You can&#39;t remember leaving a class in such a state of exhaustion and confusion.
 
-  Just as you were about to ask another question, the chair next to you is suddenly occupied by another student.  You never saw them approach, or heard them pull out the cafeteria chair, but all the same there they sit.
+  Just as you are about to ask another question, the seat next to you is suddenly occupied by another student.  You never heard them approach, but all the same there they sit.
 
-  Casually pulling a tater tot from your lunch tray, the new student chimes in, &quot;Pretty good effort in there, fellas.  Little more work and I think we&#39;ll be ready.&quot;
+  [[Who&#39;s this?]]
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="30" name="Who&#39;s this?" tags="" position="1225,350" size="100,100">Casually pulling a tater tot from your lunch tray, the new student chimes in, &quot;Pretty good effort in there, fellas.  Little more work and I think we&#39;ll be ready.&quot;
 
-  &lt;&lt;= $friend.name&gt;&gt; looks startled and confused.  Your guest returns his stare with a smile.  A second later, &lt;&lt;= $friend.name&gt;&gt; grins widely and says, &quot;Vince!  Don&#39;t you ever pack your own lunch?&quot;
+&lt;&lt;= $friend.name&gt;&gt; looks startled and confused.  Your guest returns his stare with a smile.  A second later, &lt;&lt;= $friend.name&gt;&gt; grins widely and says, &quot;Vince!  Don&#39;t you ever pack your own lunch?&quot;
 
-  Vince laughs, turning his attention to you.  &quot;Who needs to pack with such generous friends?&quot;
+Vince laughs, turning his attention to you.  &quot;Who needs to pack with such generous friends?&quot;
 
-  &lt;em&gt;Vince?  Who is Vince?&lt;/em&gt; you ask yourself.  How had you made it this far in school to not even notice when a new student had joined your class?  You watch as he pulls a stray tot from the student on his left, who pays Vince no mind.
+&lt;em&gt;Vince?  Who is Vince?&lt;/em&gt; you ask yourself.  How had you made it this far in school to not even notice when a new student had joined your class?  You watch as he pulls a stray tot from the student on his left, who pays Vince no mind.
 
-  [[Continue|Cafeteria]]
-&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="27" name="Cafeteria" tags="" position="850,350" size="100,100">&quot;No worries, though.  I heard Mr. Coop has cancelled classes for the rest of the day, just to work with us.&quot;
+[[Continue|Cafeteria]]</tw-passagedata><tw-passagedata pid="31" name="Cafeteria" tags="" position="100,475" size="100,100">&quot;No worries, though.  I heard Mr. Coop has cancelled classes for the rest of the day, just to work with us.&quot;
 
 You lock eyes with &lt;&lt;= $friend.name&gt;&gt; from across the table.  &quot;Can he do that?  What about our academics?&quot;
 
@@ -1262,43 +1545,36 @@ Vince shrugs.  &quot;I guess the school board has a lot riding on this performan
 
 &quot;Not this time.  This is the Hollo&#39;day Festival.  They&#39;re bringing in a lot of folks from the community.  I guess the music is supposed to be real special this year.&quot;
 
-[[&quot;What Holiday Festival?&quot;|3-1]]</tw-passagedata><tw-passagedata pid="28" name="3-1" tags="" position="975,350" size="100,100">&lt;&lt;set $progress = &quot;3-1&quot;&gt;&gt; \
-&lt;&lt;set _parts = $progress.split(&#39;-&#39;)&gt;&gt; \
-&lt;&lt;set _progress_num = Number(_parts[0] + &quot;.&quot; + _parts[1])&gt;&gt; \
-&lt;&lt;if _progress_num &gt; $progress_limiter&gt;&gt;
-&lt;div class=&quot;story-paper typewriter-text&quot;&gt;
-  &lt;div class=&quot;title-card&quot;&gt;
-    &lt;h1&gt;To Be Continued...&lt;/h1&gt;
-    &lt;span class=&quot;subtitle&quot;&gt;Check out your music notebook to see what terms you&#39;ve unlocked!&lt;/span&gt;
-  &lt;/div&gt;
+[[What Holiday Festival?]]</tw-passagedata><tw-passagedata pid="32" name="What Holiday Festival?" tags="" position="225,475" size="100,100">You begin to rise from your seat, opening your mouth to ask about the festival, but Vince just smiles and puts a hand on your shoulder.
 
-  &lt;&lt;link &quot;Music Binder Notebook&quot;&gt;&gt;
-    &lt;&lt;set $backpack_item = &quot;Music Binder&quot;&gt;&gt;
-    &lt;&lt;goto &quot;Backpack&quot;&gt;&gt;
-  &lt;&lt;/link&gt;&gt;
-&lt;/div&gt;
-&lt;&lt;else&gt;&gt;  
+Looking you straight in the eye, he winks and gently pushes you down.  &quot;Time to go.&quot;
+
+&lt;&lt;set $progress = &quot;3-1&quot;&gt;&gt; \
+@@.special-transition;[[Continue|Progress check]]@@</tw-passagedata><tw-passagedata pid="33" name="3-1" tags="" position="350,475" size="100,100">&lt;&lt;playsfx &quot;whoosh&quot;&gt;&gt; \
+&lt;&lt;playsfx &quot;bell&quot;&gt;&gt; \
+
 &lt;div class=&quot;story-paper typewriter-text&quot;&gt;
   &lt;div class=&quot;title-card&quot;&gt;
     &lt;h1&gt;Chapter 3&lt;/h1&gt;
     &lt;span class=&quot;subtitle&quot;&gt;Extra Rehearsal&lt;/span&gt;
   &lt;/div&gt;
 &lt;/div&gt;
-  You begin to rise from your seat, opening your mouth to ask about the festival, but Vince just smiles and puts a hand on your shoulder.
+As if on cue, the school bell rings as you fall backward into a black rehearsal chair in the chorus room.  Your friends are quietly walking to their assigned positions, and Mr. Coop is concentrating on his music score study, wearing a pair of over-the-ear headphones.
 
-  Looking you straight in the eye, he winks and gently pushes you down.  &quot;Time to go.&quot;
-  
-  As if on cue, the school bell rings as you fall backward into a black rehearsal chair in the chorus room.  Your friends are quietly walking to their assigned positions, and Mr. Coop is busily fussing with the piano, wearing a pair of over-the-ear headphones.
+[[Open your music binder]]</tw-passagedata><tw-passagedata pid="34" name="Open your music binder" tags="" position="475,475" size="100,100">&lt;&lt;if $progress !== &quot;3-2&quot;&gt;&gt; \
+Cracking open your leather binder (where is your plastic binder, anyway?), you spot Vince in the corner of your vision.  He stands at the open door, greeting his fellow students as they enter.  Each student returns his greeting with the same distant, unfamiliar look.  One glance at Vince&#39;s smile seems to break them of the lapse in memory as they all greet him in kind as they enter the room.
 
-  [[Open your music binder]]
-&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="29" name="Open your music binder" tags="" position="1100,350" size="100,100">Cracking open your leather binder (where is your plastic binder, anyway?), you spot Vince in the corner of your vision.  He stands at the open door, greeting his fellow students as they enter.  Each student returns his greeting with the same distant, unfamiliar look.  One glance at Vince&#39;s smile seems to break them of the lapse in memory as they all greet him in kind as they enter the room.
-
+&lt;&lt;/if&gt;&gt; \
 Vince quietly closes the door behind him.  He quickly places a small sticky-note to the door before turning and walking in a direct line to his seat.  Opening his folder, he makes intentional eye contact with Mr. Coop who is still hunched over, lost in his musical score.
 
 &lt;&lt;if $progress === &quot;3-2&quot;&gt;&gt; \
-  A deep sense of weird familiarity washes over you as you start to catch the patterns of the scene in front of you unfolding.  This has happened before, hasn&#39;t it?  You glance at &lt;&lt;= $friend.name&gt;&gt; to see if they caught it.  A moment later, a similar expresion of recognition crosses their face, as they turn to glance with you with excited eyes.  They open their mouth to shout something, just before you cut them off with a severe look.
+  &lt;&lt;fadestopall 2&gt;&gt; \
+  &lt;&lt;timed 2s&gt;&gt; \
+    &lt;&lt;playsfx &quot;whoosh&quot;&gt;&gt; \
+  &lt;&lt;/timed&gt;&gt; \
+  A deep sense of weird familiarity washes over you as you start to catch the patterns of the scene in front of you unfolding.  &lt;em&gt;This has happened before, hasn&#39;t it?&lt;/em&gt;  You glance at &lt;&lt;= $friend.name&gt;&gt; to see if they caught it.  A moment later, a similar expresion of recognition crosses their face, as they turn to face you with excited eyes.  They open their mouth to shout something, stopping as you cut them off with a severe look.
 
-  &quot;Wait,&quot; you mouth silently, holing up your open palm.  You look quickly to the closed door and squint to read the sticky-note left behind.  The line-thickness begins to affect you again, but you strain through to decifer exactly what you thought it would be.
+  &quot;Wait,&quot; you mouth silently, holding up your open palm.  You look quickly to the closed door and squint to read the sticky-note left behind.  The line-thickness begins to affect you again, but you strain through to decifer exactly what you thought it would be.
 
   &lt;div class=&quot;sepia-note&quot;&gt;
   &lt;img src=&quot;images/RepeatForward.png&quot;&gt;
@@ -1306,47 +1582,75 @@ Vince quietly closes the door behind him.  He quickly places a small sticky-note
 
   A repeat sign.  You remember seeing the definition in your music binder notebook.  Maybe a closer look will give you an idea of what to do next.
 
-  &lt;&lt;set $notebook[5].isunlocked = true&gt;&gt; \
-  &lt;&lt;set $backpack_item = &quot;Music Binder&quot;&gt;&gt; \
-  &lt;&lt;set $progress = &quot;3-3&quot;&gt;&gt; \
-  [[Open your music binder|Backpack]]
+  
+  &lt;&lt;link &quot;Open your music binder&quot; &quot;Backpack&quot;&gt;&gt;
+    &lt;&lt;set $notebook[5].isunlocked = true&gt;&gt; \
+    &lt;&lt;set $backpack_item = &quot;Music Binder&quot;&gt;&gt; \
+    &lt;&lt;set $progress = &quot;3-3&quot;&gt;&gt; \
+  &lt;&lt;/link&gt;&gt;
 
 &lt;&lt;else&gt;&gt; \
-With a clearing of his throat, Vince gets Mr. Coop&#39;s attention.  Another blank stare in Vince&#39;s direction eventually fades into the purposeful demeanor of a director ready to rehearse his choir.
+  With a clearing of his throat, Vince gets Mr. Coop&#39;s attention.  Another blank stare in Vince&#39;s direction eventually fades into the purposeful demeanor of a director ready to rehearse his choir.
 
-&quot;Now, let&#39;s return to our piece.  I want to add some depth to our expression.  Read your notation and follow my lead.&quot;
+  &quot;Now, let&#39;s return to our piece.  I want to add some depth to our expression.  Read your notation and follow my lead.&quot;
 
-[[Begin rehearsal|3-2]]
-&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="30" name="3-2" tags="" position="1225,350" size="100,100">&lt;&lt;set $progress = &quot;3-2&quot;&gt;&gt; \
+  [[Begin rehearsal|3-2]]
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="35" name="3-2" tags="" position="600,475" size="100,100">&lt;&lt;set $progress = &quot;3-2&quot;&gt;&gt; \
 Glancing at the new music, your heart sinks.  Again, the notation is alien and confusing.  On your second look, you get a better sense of exactly what the differences are that seem so unsettling.
 
 First, the lines have no standard thickness.  It gives a sense of waves rippling across the page.  You swear, staring at the page intently, the waves are somehow &lt;em&gt;moving&lt;/em&gt;.  A flash of sea-sickness threatens the base of your throat, and you look away quickly.
 
 Across the room, you see &lt;&lt;= $friend.name&gt;&gt; staring at their music with a similar look of confusion.  Their eyes are wide, and they are gripping the music tightly in their hands.  You can see the tension in their shoulders as they try to make sense of the strange notation.
 
-&lt;em&gt;Tap, tap, tap, tap...&lt;/em&gt;. Mr. Coop&#39;s baton lightly plays a steady beat on his metal podium.  The sound snaps you out of your fog.  He&#39;s never used a baton to conduct the choir.  You glance down to see if the music calls for a specific conducting technique, as he begins conducting the piano accompanist.
+[[Steady yourself]]</tw-passagedata><tw-passagedata pid="36" name="Steady yourself" tags="" position="725,475" size="100,100">&lt;&lt;playsfx &quot;tap&quot;&gt;&gt; \
+&lt;em&gt;Tap, tap, tap, tap...&lt;/em&gt;
 
+Mr. Coop&#39;s baton lightly plays a steady beat on his metal podium.  The sound snaps you out of your fog.  He&#39;s never used a baton to conduct the choir.  You glance down to see if the music calls for a specific conducting technique, as he begins conducting the piano accompanist.
+
+[[Begin]]</tw-passagedata><tw-passagedata pid="37" name="Begin" tags="" position="850,475" size="100,100">&lt;&lt;playbgm &quot;waltz&quot;&gt;&gt; \
 From the back corner of the room, where Mr. Coop&#39;s desk and computer usually sit, a brutally slow waltz begins to play.  You snap your head to see a pianist playing live in the classroom.  For the second time today, you begin to wonder how much the school board has really invested in this sudden performance.
 
 &quot;With me, everybody.  Nice and slow. One-two-three, one-ready-sing...&quot;
 
-[[Sing]]</tw-passagedata><tw-passagedata pid="31" name="Sing" tags="" position="100,475" size="100,100">The harsh chords of the piano diminish as the choir begins to sing a slow, mournful melody.  You watch as the new pianist bobs his head in time with the music, his hands slapping the keys almost indiscriminately, creating atonal harmonies that could only belong to the logic of an insane composer.  
+[[Sing]]
+[[Observe the pianist]]</tw-passagedata><tw-passagedata pid="38" name="Sing" tags="" position="975,475" size="100,100">The harsh chords of the piano diminish as the choir begins to sing a slow, mournful melody.  The rhythm of the new piece is complex and sits between the off-beat piano accompaniment.  Your classmates begin to make mistakes trying to keep up with the raucous music.
 
-The pianist resembles an older man, maybe the age of your oldest uncle.  His hair is long and gray, hanging in front of his face as he bobs to the music.  His clothes all seemed relatively in place, though maybe a bit more worn than you would expect from a professional working with school students.
+[[Lead by example]]
+[[Stop singing]]
+[[Observe the pianist]]
+&lt;&lt;fadestopall 2&gt;&gt; 
+&lt;&lt;timed 2s&gt;&gt;
+  &lt;&lt;playbgm &quot;waltz2&quot;&gt;&gt; 
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="39" name="Lead by example" tags="" position="1100,475" size="100,100">You do your best to sing with confidence.  In the past, that has been the best way to help each other stay on track, especially with new music.  However, the difficulty of the music becomes too much for even your experienced voice to overcome.
+
+You glance to the back of the room, hoping to glean some understanding by watching the pianist&#39;s accompaniment.
+
+[[Stop singing]]
+[[Observe the pianist]]</tw-passagedata><tw-passagedata pid="40" name="Stop singing" tags="" position="1225,475" size="100,100">&lt;&lt;fadestopall&gt;&gt; \
+Frustrated by your mistakes, you stop singing and look closer at your classmates.  They each show a face of confusion, anger, frustration, or a mixture of all three emotions.
+
+Vince catches your lack of participation and appears to tense.  You see him place a pad of sticky-notes on his lap as he continues singing along with your classmates.
+
+Mr. Coop also glances in your direction.  He gestures strongly for you to continue singing, giving you an expectant, waiting look.
+
+[[Sing]]
+[[Observe the pianist]]</tw-passagedata><tw-passagedata pid="41" name="Observe the pianist" tags="" position="100,600" size="100,100">You watch as the new pianist bobs his head in time with the music, his hands slapping the keys almost indiscriminately, creating atonal harmonies that could only belong to the logic of an insane composer.  
+
+The pianist resembles an older man, though you admit your own ability to determine the ages of various adults was never all that accurate.  His hair is long and gray, hanging in front of his face as he bobs to the music.  He is wearing a patch-work coat that seems to be made of small, square pieces all fastened together.  &lt;em&gt;Are those sticky-notes?&lt;/em&gt; you wonder.
 
 That&#39;s when you notice the strings.
 
-On each finger was a thin, almost imperceptible string, wrapped around the large knuckle and rising up to the pianist&#39;s shoulder.  From there, you followed a growing cord of strings arcing up over the heads of the students in the classroom.
+On each finger is attached a thin, almost imperceptible string, wrapped around the large knuckle and rising up to the pianist&#39;s shoulder.  From there, you follow a growing cord of semi-transparent strings arcing up over the heads of the students in the classroom.
 
-[[Follow the strings]]</tw-passagedata><tw-passagedata pid="32" name="Follow the strings" tags="" position="225,475" size="100,100">Tilting your head up to follow the strings with your eyes, Vince catches you looking and angrily shakes his head.  Pulling out another sticky-note, he scribbles something on it before slamming it on wall next to him.
+[[Follow the strings]]</tw-passagedata><tw-passagedata pid="42" name="Follow the strings" tags="" position="225,600" size="100,100">Tilting your head up to follow the strings with your eyes, Vince catches you looking and angrily shakes his head.  Pulling out another sticky-note, he scribbles something on it before slamming it on wall next to him.
 
 Just as he removes his hands, you catch a glimpse of the note.
 
 &lt;div class=&quot;sepia-note&quot;&gt;
-&lt;img src=&quot;images/RepeatForward.png&quot;&gt;
+&lt;img src=&quot;images/RepeatBackward.png&quot;&gt;
 &lt;/div&gt;
 
-[[Continue|Open your music binder]]</tw-passagedata><tw-passagedata pid="33" name="3-3" tags="" position="350,475" size="100,100">&lt;div class=&quot;story-paper typewriter-text&quot;&gt;
+@@.special-transition;[[Continue|Open your music binder]]@@</tw-passagedata><tw-passagedata pid="43" name="3-3" tags="" position="350,600" size="100,100">&lt;div class=&quot;story-paper typewriter-text&quot;&gt;
   &lt;div class=&quot;title-card&quot;&gt;
     &lt;span class=&quot;note&quot;&gt;New terms have been added to your notebook!&lt;/span&gt;
   &lt;/div&gt;
@@ -1356,66 +1660,217 @@ Why is Vince drawing sticky-notes of musical symbols and leaving them on Mr. Coo
 
 An idea pops into your head.  You look up and see Vince getting to his seat.  He still hasn&#39;t gotten Mr. Coop&#39;s attention to start class.  Now is your chance.
 
-[[Write a sticky-note]]</tw-passagedata><tw-passagedata pid="34" name="Write a sticky-note" tags="" position="475,475" size="100,100">You grab the sticky-note pad from your backpack and draw a returning repeat sign.
+&lt;&lt;link &quot;Write a sticky-note&quot;&gt;&gt;
+  &lt;&lt;set $progress = &quot;3-4&quot;&gt;&gt;
+  &lt;&lt;goto &quot;Write a sticky-note&quot;&gt;&gt;
+&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="44" name="Write a sticky-note" tags="" position="475,600" size="100,100">Click an image below to draw it on your sticky-note.
 
 &lt;div class=&quot;sepia-note&quot;&gt;
-&lt;img src=&quot;images/RepeatBackward.png&quot;&gt;
+  &lt;span id=&quot;symbol-note&quot; class=&quot;note&quot;&gt;&lt;img src=&quot;images/EmptyFrame.png&quot;&gt;&lt;/span&gt;
 &lt;/div&gt;
 
-Repeating Vince&#39;s movement, you slam the stick-note onto your chair.  A flash of white light blinds you momentarily.
+&lt;&lt;nobr&gt;&gt;
+&lt;&lt;set $symbol_buttons = [
+  {term: &quot;Crescendo&quot;, button: &quot;images/button-crescendo.png&quot;, symbol: &quot;images/Crescendo.png&quot;, isunlocked: false},
+  {term: &quot;Decrescendo&quot;, button: &quot;images/button-decrescendo.png&quot;, symbol: &quot;images/Decrescendo.png&quot;, isunlocked: false},
+  {term: &quot;Fermata&quot;, button: &quot;images/button-fermata.png&quot;, symbol: &quot;images/Fermata.png&quot;, isunlocked: false},
+  {term: &quot;Forward Repeat&quot;, button: &quot;images/button-repeat-forward.png&quot;, symbol: &quot;images/RepeatForward.png&quot;, isunlocked: false},
+  {term: &quot;Backward Repeat&quot;, button: &quot;images/button-repeat-backward.png&quot;, symbol: &quot;images/RepeatBackward.png&quot;, isunlocked: false},
+  {term: &quot;Segno&quot;, button: &quot;images/button-segno.png&quot;, symbol: &quot;images/Segno.png&quot;, isunlocked: false},
+  {term: &quot;First Ending&quot;, button: &quot;images/button-first-end.png&quot;, symbol: &quot;images/FirstEnding.png&quot;, isunlocked: false},
+  {term: &quot;Second Ending&quot;, button: &quot;images/button-second-end.png&quot;, symbol: &quot;images/SecondEnding.png&quot;, isunlocked: false},
+  {term: &quot;Coda&quot;, button: &quot;images/button-coda.png&quot;, symbol: &quot;images/Coda.png&quot;, isunlocked: false}
+]&gt;&gt;  
 
-[[Repeat|3-4]]</tw-passagedata><tw-passagedata pid="35" name="3-4" tags="" position="600,475" size="100,100">&lt;&lt;set $progress = &quot;3-4&quot;&gt;&gt; \
+&lt;&lt;for _i = 0; _i &lt; $notebook.length; _i++&gt;&gt;
+  &lt;&lt;for _j = 0; _j &lt; $symbol_buttons.length; _j++&gt;&gt;
+    &lt;&lt;if $notebook[_i].term === &quot;Repeat Signs&quot;&gt;&gt;
+      &lt;&lt;set $symbol_buttons[3].isunlocked = $notebook[_i].isunlocked&gt;&gt;
+      &lt;&lt;set $symbol_buttons[4].isunlocked = $notebook[_i].isunlocked&gt;&gt;
+    &lt;&lt;elseif $notebook[_i].term === &quot;1st and 2nd Endings&quot;&gt;&gt;
+      &lt;&lt;set $symbol_buttons[6].isunlocked = $notebook[_i].isunlocked&gt;&gt;
+      &lt;&lt;set $symbol_buttons[7].isunlocked = $notebook[_i].isunlocked&gt;&gt;
+    &lt;&lt;elseif $notebook[_i].term === $symbol_buttons[_j].term&gt;&gt;
+      &lt;&lt;set $symbol_buttons[_j].isunlocked = $notebook[_i].isunlocked&gt;&gt;
+    &lt;&lt;/if&gt;&gt;
+  &lt;&lt;/for&gt;&gt;
+&lt;&lt;/for&gt;&gt;
+
+&lt;&lt;set $symbol_selection = &quot;&quot;&gt;&gt;
+&lt;div class=&quot;paper-button&quot;&gt;
+  &lt;&lt;for _i = 0; _i &lt; $symbol_buttons.length; _i++&gt;&gt;
+    &lt;&lt;capture _i&gt;&gt;
+      &lt;&lt;if $symbol_buttons[_i].isunlocked&gt;&gt;
+        &lt;&lt;set _button = $symbol_buttons[_i].button&gt;&gt;
+        &lt;&lt;link [img[_button]]&gt;&gt;
+          &lt;&lt;set $symbol_selection = $symbol_buttons[_i].term&gt;&gt;
+          &lt;&lt;set _symbol_image = $symbol_buttons[_i].symbol&gt;&gt;
+          &lt;&lt;replace &quot;#symbol-note&quot;&gt;&gt;
+            &lt;img @src=_symbol_image&gt;
+          &lt;&lt;/replace&gt;&gt;
+        &lt;&lt;/link&gt;&gt;
+      &lt;&lt;/if&gt;&gt;
+    &lt;&lt;/capture&gt;&gt;
+  &lt;&lt;/for&gt;&gt;
+&lt;/div&gt;
+&lt;&lt;/nobr&gt;&gt;  
+
+@@.special-transition;&lt;&lt;link &quot;Activate symbol&quot; $progress&gt;&gt;&lt;&lt;/link&gt;&gt;@@</tw-passagedata><tw-passagedata pid="45" name="3-4" tags="" position="600,600" size="100,100">&lt;&lt;playsfx &quot;whoosh&quot;&gt;&gt; \
+&lt;&lt;switch $symbol_selection&gt;&gt; \
+  &lt;&lt;case &quot;Crescendo&quot;&gt;&gt; \
+  The moderate amount of classroom conversation begins to slowly grow in volume.  The voices get louder, the bustling of student seats and binders clatter noisily.  Mr. Coop is startled by the sound and gives his class a sharp look.
+
+  &quot;Settle down, class!&quot;
+
+  You don&#39;t notice anything else different.
+
+  [[Write a sticky-note]]
+  &lt;&lt;case &quot;Decrescendo&quot;&gt;&gt;
+  Slowly, all of the sound in the room fades away.  Students don&#39;t stop talking, they just become harder and harder to hear.  Finally, Mr. Coop realizes his class is dead silent.
+
+  His eyebrows raise as he views his gravely quiet class.
+
+  You don&#39;t notice anything else different.
+
+  [[Write a sticky-note]]
+  &lt;&lt;case &quot;Backward Repeat&quot;&gt;&gt;
+  You look up in time to see a bright, yellowish light surround the entire chorus classroom.  As the light fades, people have returned to their places from several minutes ago.
+
+  [[Continue|3-5]]
+  &lt;&lt;default&gt;&gt;
+  You don&#39;t notice anything different.
+
+  [[Write a sticky-note]]
+&lt;&lt;/switch&gt;&gt;</tw-passagedata><tw-passagedata pid="46" name="3-5" tags="" position="725,600" size="100,100">&lt;&lt;set $progress = &quot;3-5&quot;&gt;&gt;
 You spot Vince immediately by the classroom door, greeting students.  You dart your eyes over to &lt;&lt;= $friend.name&gt;&gt; to see him looking right at you.
 
 &quot;What did you do?&quot; he asks, incredulous.
 
-&quot;I&#39;m not sure, but I think I have an idea of what&#39;s been happening here.&quot;  Rushing out of your chair, you approach the piano.
+&quot;I&#39;m not sure, but I think I have an idea of what&#39;s been happening here.&quot;  Rushing out of your chair, you approach the podium.
 
-Mr. Coop doesn&#39;t notice you at first, as he is deep in his musical study with his headphones covering both ear.  Impatient, you tap gently on his piano to get his attention.
+Mr. Coop doesn&#39;t notice you at first, as he is deep in his musical study with his headphones covering both ear.  Impatient, you tap gently on his podium to get his attention.
 
-&quot;What?&quot; he asks, incredulous.  Then, noticing you, he softens.  &quot;Sorry, &lt;&lt;= $character.name&gt;&gt;, I must&#39;ve lost track of time.  What can I do for you?&quot;
+&quot;What?&quot; he snaps at you.  Then, softening his tone, he continues.  &quot;Sorry, &lt;&lt;= $character.name&gt;&gt;, I must&#39;ve lost track of time.  What can I do for you?&quot;
 
-&quot;Tissue, please,&quot; you request.  Mr. Coop nods, granting you permission.  &lt;&lt;= $friend.name&gt;&gt; looks at you, mouth hanging open.  You shake your head, indicating for him not to make a scene.
+&quot;Tissue, please,&quot; you request.  Mr. Coop nods, granting you permission.  &lt;&lt;= $friend.name&gt;&gt; looks at you suspiciously.  You shake your head, indicating for him not to make a scene.
 
-[[Head to the front of the room]]</tw-passagedata><tw-passagedata pid="36" name="Head to the front of the room" tags="" position="725,475" size="100,100">Moving to the front of the chorus room, you glance at Vince who is trying to get Mr. Coop&#39;s attention to begin rehearsal.  His eyes flick to you just as you grab his sticky-note and crumple it in your hand.
+[[Head to the front of the room]]</tw-passagedata><tw-passagedata pid="47" name="Head to the front of the room" tags="" position="850,600" size="100,100">&lt;&lt;playbgm &quot;waltz&quot;&gt;&gt; \
+Moving to the front of the chorus room, you glance at Vince who is trying to get Mr. Coop&#39;s attention to begin rehearsal.  His eyes flick to you just as you grab his sticky-note and crumple it in your hand.
 
 Fury burns in Vince&#39;s eyes as he watches his plans foiled.  Flinching in anger, his fingers begin flailing in strange, geometric patterns.  Looking closer, you notice those same almost invisible strings attached to Vince&#39;s fingers.  On his command, Vince&#39;s piano accompanist begins performing the odd waltz.
 
 Surprised, Mr. Coop instinctively raises his hands to conduct a lilting one-pattern.  Counting aloud, he gets the choristers ready for their entrance.
 
 [[Continue to watch Vince]]
-[[Join the chorus|3-5]]</tw-passagedata><tw-passagedata pid="37" name="Continue to watch Vince" tags="" position="850,475" size="100,100">Vince returns his attention to the music binder in his hands and Mr. Coop&#39;s conducting pattern.  You can still see tiny movements in his fingers, twitching to lead the wooden pianist along their musical performance.
+[[Join the chorus|3-6]]</tw-passagedata><tw-passagedata pid="48" name="Continue to watch Vince" tags="" position="975,600" size="100,100">Vince returns his attention to the music binder in his hands and Mr. Coop&#39;s conducting pattern.  You can still see tiny movements in his fingers, twitching to lead the wooden pianist along their musical performance.
 
 Mr. Coop&#39;s baton swipes into your view as he glares at you from the podium.  His frown and pointed look toward your empty seat are all the motivation you need to rejoin your classmates.
 
-[[Join the chorus|3-5]]</tw-passagedata><tw-passagedata pid="38" name="3-5" tags="" position="975,475" size="100,100">&lt;&lt;set $progress = &quot;3-5&quot;&gt;&gt; \
-&lt;&lt;set $notebook[2].isunlocked = true&gt;&gt; \
-Lending your voice to the mournful ballad, you notice something different this time.  The pianist&#39;s harmonies soften, introducing more pleasant tonalities to support the melodic line.  
+[[Join the chorus|3-6]]</tw-passagedata><tw-passagedata pid="49" name="3-6" tags="" position="1100,600" size="100,100">&lt;&lt;fadestopall 2&gt;&gt; \
+&lt;&lt;timed 2s&gt;&gt; \
+  &lt;&lt;playbgm &quot;waltz2&quot;&gt;&gt; \
+&lt;&lt;/timed&gt;&gt; \
+&lt;&lt;set $progress = &quot;3-6&quot;&gt;&gt; \
+Lending your voice to the mournful ballad, you notice something different this time.  The pianist&#39;s harmonies soften, introducing more pleasant tonalities to support the melodic line, concluding with a statisfying minor chord.
 
-In a short time the piece finishes with a satisfying conclusion.  Mr. Coop smiles and nods approvingly.  &quot;That&#39;s the way, guys!  Nice run-through.  Let&#39;s move on to...&quot;
+Looking around the room, the rest of your chorus seemed to agree with your feelings on the performance.  That is, except for Vince.  Eyes still on his music binder, he reaches for his sticky-pads to draw another notation.
 
-&quot;Mr. Coop, I believe I heard a mistake in the tenor part at measure 53, beat 2.  Could we check that, please?&quot;
+&lt;&lt;set _temp_friend = $character_list[random(0,10)]&gt;&gt; \
+&lt;&lt;for _temp_friend.name === $character.name or _temp_friend.name === $friend.name&gt;&gt; \
+  &lt;&lt;set _temp_friend = $character_list[random(0,10)]&gt;&gt; \
+&lt;&lt;/for&gt;&gt; \
+You nudge &lt;&lt;= $friend.name&gt;&gt; to make sure he is watching the scene with you, but he is already participating in a heated conversation with &lt;&lt;= _temp_friend.name&gt;&gt; regarding late 1990s video game systems.
 
-Taken aback, Mr. Coop stares at Vince for a long moment.  &quot;Well, sure.  We can give that a look, Vince.  Let me just...&quot;
+Vince looks up to you, and shows you the note in his hands.
 
-From his seat, you see &lt;&lt;= $friend.name&gt;&gt; reaching into his bag for a pencil.  A moment later, he is flipping back to his music binder notebook for reference, before returning to write into the music himself.  He nods at his own work before turning in his seat to look directly at you.  Holding his folder up, he taps the pencil just above the current section of music.
-
+@@.special-transition;[[Read Vince&#39;s note]]@@</tw-passagedata><tw-passagedata pid="50" name="Read Vince&#39;s note" tags="" position="1225,600" size="100,100">&lt;&lt;fadestopall 2&gt;&gt; \
+&lt;&lt;timed 2s&gt;&gt; \
+  &lt;&lt;playsfx &quot;whoosh&quot;&gt;&gt; \
+&lt;&lt;/timed&gt;&gt; \
 &lt;div class=&quot;sepia-note&quot;&gt;
-&lt;img src=&quot;images/Accelerando.png&quot;&gt;
+&lt;img src=&quot;images/Decrescendo.png&quot;&gt;
 &lt;/div&gt;
 
-You look from the music, back to &lt;&lt;= $friend.name&gt;&gt;, up to Vince and Mr. Coop who were in deep discussion over the interpretation of the composer&#39;s intent, and back to &lt;&lt;= $friend.name&gt;&gt;&#39;s eager grin.
+Before you can react, Vince activates the symbol.  A glow of light shines between his fingers as the sounds of the room begin to diminish around you.
 
-&lt;em&gt;Sure, why not?&lt;/em&gt; you think.  Grabbing your pencil, you place it in your part as well.
+[[Shout for help]]</tw-passagedata><tw-passagedata pid="51" name="Shout for help" tags="" position="100,725" size="100,100">&lt;&lt;nobr&gt;&gt;
+  &lt;&lt;if $character.voice === &quot;Baritone&quot;&gt;&gt;
+    &lt;&lt;set _voice = &quot;chest&quot;&gt;&gt;
+  &lt;&lt;else&gt;&gt;
+    &lt;&lt;set _voice = &quot;head&quot;&gt;&gt;
+  &lt;&lt;/if&gt;&gt;
+&lt;&lt;/nobr&gt;&gt;
+You fill your lungs with air to call out to Mr. Coop, but the sound never produces.  You can feel the air leaving your lungs, vibrating your vocal folds, and resonating within your _voice voice.
 
-[[Hold on tight]]</tw-passagedata><tw-passagedata pid="39" name="Hold on tight" tags="" position="1100,475" size="100,100">&lt;div class=&quot;story-paper typewriter-text&quot;&gt;
+Vince approaches you from across the room.  His voice rings out clearly in your ears, though none of your classmates seem to notice.  They continue jabbering their mouths silently, as though carrying on imperceptible conversations.
+
+&quot;You&#39;ll find this to be a terribly dangerous game, &lt;&lt;= $character.name&gt;&gt;,&quot; whispers Vince.  His voice tickles your spine in a way that shivers you to the floor.  &quot;Now, we&#39;re going to rehearse this music one way or another.  And I suggest you join us for the- &quot;
+
+[[&quot;What&#39;s that sound?&quot;]]</tw-passagedata><tw-passagedata pid="52" name="What&#39;s that sound?" tags="" position="225,725" size="100,100">&lt;&lt;playsfx &quot;bell_swirl&quot;&gt;&gt; \
+From somewhere far away, a school bell rings quietly.  Vince snaps his head to the side to point his ear in the direction of the sound.  The ringing&#39;s intensity pierces through the silence of the room, getting the attention of the students around you.  
+
+Vince snaps his eyes back to you.  A strange, red fire shines behind them.  The light in the room dims behind the intesity of his stare.
+
+Students push past the two of you as they make their way out of the room.
+
+[[Stay and confront Vince]]
+[[Leave while you can]]</tw-passagedata><tw-passagedata pid="53" name="Stay and confront Vince" tags="" position="350,725" size="100,100">&quot;&lt;&lt;= $character.name&gt;&gt;!&quot;
+
+&lt;&lt;= $friend.name&gt;&gt; calls to you through the bustling crowd from the chorus room door.  His voice sounds friendly, but his eyes look worried.
+
+Looking back to confront Vince, you find him gone without a trace.  &lt;em&gt;He didn&#39;t go out the door.  There&#39;s no windows in this room.  Where is he?&lt;/em&gt;
+
+&lt;&lt;set $progress = &quot;4-1&quot;&gt;&gt; \
+@@.special-transition;[[Leave the Chorus Room|Progress check]]@@</tw-passagedata><tw-passagedata pid="54" name="Leave while you can" tags="" position="475,725" size="100,100">&lt;&lt;playsfx &quot;whoosh&quot;&gt;&gt; \
+You make for the exit, brushing past Vince on your way.  Instead of resistance, you feel a light brush of light material against you as you step past his position.
+
+Turning to him in surprise, you discover he&#39;s vanished without a trace.  &lt;em&gt;He didn&#39;t go out the door.  There&#39;s no windows in this room.  Where is he?&lt;/em&gt;
+
+&lt;&lt;set $progress = &quot;4-1&quot;&gt;&gt; \
+@@.special-transition;[[Leave the Chorus Room|4-1]]@@</tw-passagedata><tw-passagedata pid="55" name="4-1" tags="" position="600,725" size="100,100">&lt;&lt;playsfx &quot;whoosh&quot;&gt;&gt; \
+&lt;div class=&quot;story-paper typewriter-text&quot;&gt;
   &lt;div class=&quot;title-card&quot;&gt;
-    &lt;span class=&quot;note&quot;&gt;New terms have been added to your notebook!&lt;/span&gt;
+    &lt;h1&gt;Chapter 4&lt;/h1&gt;
+    &lt;span class=&quot;subtitle&quot;&gt;Heads up!&lt;/span&gt;
   &lt;/div&gt;
-&lt;/div&gt;
-Vince returns to his seat at Mr. Coop takes up his baton.  &quot;Alright, class.  Again from measure 53.  Gives us a few bars, will you?&quot; he asks the wooden piano accompanist proped up in the corner of his room.  A feeble, stiff wave is his reply as the grotesque marianette begins to flit across the keys.
 
-You and &lt;&lt;= $friend.name&gt;&gt; slap your music binders just above measure 53 at the same time, aiming for beat 2.  The glowing light from earlier returns as you invoke your new musical power to accelerate the tempo of the piece.</tw-passagedata></tw-storydata>
+  Stepping through the door, the world twists around you.  Instead of the familiar, solid hall, it seems that outside of the chorus room has become a torrent of light and dark swirling in a void.
+
+  Just as you start to lose your head (and possibly your lunch), a light shines all about you and solidifies into shining sun over the school courtyard.
+
+  You are sitting in the grass under a familiar tree.  Autumn leaves are scattered all around you.  The warm, afternoon sun shines at a severe angle, glaring against the classroom windows.
+
+  &quot;Catch!&quot; calls a familiar voice.
+
+  [[Catch!]]
+  [[Duck!]]
+  [[What?]]
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="56" name="Catch!" tags="" position="725,725" size="100,100">&lt;&lt;set _temp_friend = $character_list[random(0,10)]&gt;&gt; \
+&lt;&lt;for _temp_friend.name === $character.name or _temp_friend.name === $friend.name&gt;&gt; \
+  &lt;&lt;set _temp_friend = $character_list[random(0,10)]&gt;&gt; \
+&lt;&lt;/for&gt;&gt; \
+
+Looking up to the sky, you see the shadow of a football spiralling toward you.  Placing your upper body in the ball&#39;s flight path, you grab the ball from the air.
+
+&quot;Nice catch!&quot; calls &lt;&lt;= _temp_friend.name&gt;&gt; as he and &lt;&lt;= $friend.name&gt;&gt; jog toward you.
+
+[[Where&#39;s Vince?]]</tw-passagedata><tw-passagedata pid="57" name="Duck!" tags="" position="850,725" size="100,100">&lt;&lt;set _temp_friend = $character_list[random(0,10)]&gt;&gt; \
+&lt;&lt;for _temp_friend.name === $character.name or _temp_friend.name === $friend.name&gt;&gt; \
+  &lt;&lt;set _temp_friend = $character_list[random(0,10)]&gt;&gt; \
+&lt;&lt;/for&gt;&gt; \
+You hit the deck, trying to place your head between your knees and curling into a human ball.  You hear a thud as a football lands in the grass next to you.
+
+&quot;C&#39;mon, that was a perfect pass!&quot; calls &lt;&lt;= _temp_friend.name&gt;&gt; as he and &lt;&lt;= $friend.name&gt;&gt; jog toward you.
+
+[[Where&#39;s Vince?]]</tw-passagedata><tw-passagedata pid="58" name="What?" tags="" position="975,725" size="100,100">&lt;&lt;set _temp_friend = $character_list[random(0,10)]&gt;&gt; \
+&lt;&lt;for _temp_friend.name === $character.name or _temp_friend.name === $friend.name&gt;&gt; \
+  &lt;&lt;set _temp_friend = $character_list[random(0,10)]&gt;&gt; \
+&lt;&lt;/for&gt;&gt; \
+You look up just in time to see a flying football on a flight path appearing to intercept with your face.  You have just enough time to accept your fate as the ball lands squarely on your forehead with a loud thud.
+
+&quot;Whoa, brutal!&quot; calls &lt;&lt;= _temp_friend.name&gt;&gt; as he and &lt;&lt;= $friend.name&gt;&gt; jog toward you.
+
+[[Where&#39;s Vince?]]</tw-passagedata><tw-passagedata pid="59" name="Where&#39;s Vince?" tags="" position="1100,725" size="100,100"></tw-passagedata></tw-storydata>
 	<script id="script-sugarcube" type="text/javascript">
 	/*! SugarCube JS */
 	if(document.documentElement.getAttribute("data-init")==="loading"){!function(window,document,jQuery,undefined){"use strict";function _classCallCheck(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function _toConsumableArray(e){if(Array.isArray(e)){for(var t=0,r=Array(e.length);t<e.length;t++)r[t]=e[t];return r}return Array.from(e)}var _createClass=function(){function e(e,t){for(var r=0;r<t.length;r++){var n=t[r];n.enumerable=n.enumerable||!1,n.configurable=!0,"value"in n&&(n.writable=!0),Object.defineProperty(e,n.key,n)}}return function(t,r,n){return r&&e(t.prototype,r),n&&e(t,n),t}}(),_slicedToArray=function(){function e(e,t){var r=[],n=!0,a=!1,i=undefined;try{for(var o,s=e[Symbol.iterator]();!(n=(o=s.next()).done)&&(r.push(o.value),!t||r.length!==t);n=!0);}catch(e){a=!0,i=e}finally{try{!n&&s.return&&s.return()}finally{if(a)throw i}}return r}return function(t,r){if(Array.isArray(t))return t;if(Symbol.iterator in Object(t))return e(t,r);throw new TypeError("Invalid attempt to destructure non-iterable instance")}}(),_typeof="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e},errorPrologRegExp=/^(?:(?:uncaught\s+(?:exception:\s+)?)?\w*(?:error|exception|_err):\s+)+/i,Alert=function(){function e(e,t,r,n){var a="fatal"===e,i="Apologies! "+(a?"A fatal":"An")+" error has occurred.";i+=a?" Aborting.":" You may be able to continue, but some parts may not work properly.",null==t&&null==r||(i+="\n\nError",null!=t&&(i+=" ["+t+"]"),i+=null!=r?": "+r.replace(errorPrologRegExp,"")+".":": unknown error."),"object"===(void 0===n?"undefined":_typeof(n))&&n.stack&&(i+="\n\nStack Trace:\n"+n.stack),window.alert(i)}function t(t,r,n){e(null,t,r,n)}function r(t,r,n){e("fatal",t,r,n)}return function(e){window.onerror=function(n,a,i,o,s){"complete"===document.readyState?t(null,n,s):(r(null,n,s),window.onerror=e,"function"==typeof window.onerror&&window.onerror.apply(this,arguments))}}(window.onerror),Object.freeze(Object.defineProperties({},{error:{value:t},fatal:{value:r}}))}(),Patterns=function(){var e=function(){var e=new Map([[" ","\\u0020"],["\f","\\f"],["\n","\\n"],["\r","\\r"],["\t","\\t"],["\v","\\v"],[" ","\\u00a0"],[" ","\\u1680"],["᠎","\\u180e"],[" ","\\u2000"],[" ","\\u2001"],[" ","\\u2002"],[" ","\\u2003"],[" ","\\u2004"],[" ","\\u2005"],[" ","\\u2006"],[" ","\\u2007"],[" ","\\u2008"],[" ","\\u2009"],[" ","\\u200a"],["\u2028","\\u2028"],["\u2029","\\u2029"],[" ","\\u202f"],[" ","\\u205f"],["　","\\u3000"],["\ufeff","\\ufeff"]]),t=/^\s$/,r="";return e.forEach(function(e,n){t.test(n)||(r+=e)}),r?"[\\s"+r+"]":"\\s"}(),t="\\s"===e?"\\S":e.replace(/^\[/,"[^"),r="[0-9A-Z_a-z\\-\\u00c0-\\u00d6\\u00d8-\\u00f6\\u00f8-\\u00ff\\u0150\\u0170\\u0151\\u0171]",n=r.replace("\\-",""),a=function(){return"("+r+"+)\\(([^\\)\\|\\n]+)\\):|("+r+"+):([^;\\|\\n]+);|((?:\\."+r+"+)+);|((?:#"+r+"+)+);"}();return Object.freeze({space:e,spaceNoTerminator:"[\\u0020\\f\\t\\v\\u00a0\\u1680\\u180e\\u2000-\\u200a\\u202f\\u205f\\u3000\\ufeff]",lineTerminator:"[\\n\\r\\u2028\\u2029]",notSpace:t,anyChar:"(?:.|[\\n\\r\\u2028\\u2029])",anyLetter:r,anyLetterStrict:n,identifierFirstChar:"[$A-Z_a-z]",identifierNextChar:"[$0-9A-Z_a-z]",identifier:"[$A-Z_a-z][$0-9A-Z_a-z]*",variableSigil:"[$_]",variable:"[$_][$A-Z_a-z][$0-9A-Z_a-z]*",macroName:"[A-Za-z][\\w-]*|[=-]",templateName:"[A-Za-z][\\w-]*",cssImage:"\\[[<>]?[Ii][Mm][Gg]\\[(?:\\s|\\S)*?\\]\\]+",inlineCss:a,url:"(?:file|https?|mailto|ftp|javascript|irc|news|data):[^\\s'\"]+"})}();!function(){!function(e){if(e&&e.prototype&&null==e.prototype.firstElementChild){var t=Node.ELEMENT_NODE;Object.defineProperty(e.prototype,"firstElementChild",{get:function(){for(var e=this.childNodes,r=0;r<e.length;++r){var n=e[r];if(n.nodeType===t)return n}return null}})}}(window.Node||window.Element)}(),function(){function e(e,t){var r=Number.parseInt(e,10)||0;if(r<1)return"";var n=void 0===t?"":String(t);for(""===n&&(n=" ");n.length<r;){var a=n.length,i=r-a;n+=a>i?n.slice(0,i):n}return n.length>r&&(n=n.slice(0,r)),n}var t=function(){function e(e,n){var a=String(e);if(!a)return a;switch(n){case"start":return t.test(a)?a.replace(t,""):a;case"end":return r.test(a)?a.replace(r,""):a;default:throw new Error('_trimString called with incorrect where parameter value: "'+n+'"')}}var t=new RegExp("^"+Patterns.space+Patterns.space+"*"),r=new RegExp(""+Patterns.space+Patterns.space+"*$");return e}();Array.prototype.flat||Object.defineProperty(Array.prototype,"flat",{configurable:!0,writable:!0,value:function(){function e(){if(null==this)throw new TypeError("Array.prototype.flat called on null or undefined");var t=0===arguments.length?1:Number(arguments[0])||0;return t<1?Array.prototype.slice.call(this):Array.prototype.reduce.call(this,function(r,n){return n instanceof Array?r.push.apply(r,_toConsumableArray(e.call(n,t-1))):r.push(n),r},[])}return e}()}),Array.prototype.flatMap||Object.defineProperty(Array.prototype,"flatMap",{configurable:!0,writable:!0,value:function(){if(null==this)throw new TypeError("Array.prototype.flatMap called on null or undefined");return Array.prototype.map.apply(this,arguments).flat()}}),Array.prototype.includes||Object.defineProperty(Array.prototype,"includes",{configurable:!0,writable:!0,value:function(){if(null==this)throw new TypeError("Array.prototype.includes called on null or undefined");if(0===arguments.length)return!1;var e=this.length>>>0;if(0===e)return!1;var t=arguments[0],r=Number(arguments[1])||0;for(r<0&&(r=Math.max(0,e+r));r<e;++r){var n=this[r];if(n===t||n!==n&&t!==t)return!0}return!1}}),Object.entries||Object.defineProperty(Object,"entries",{configurable:!0,writable:!0,value:function(e){if("object"!==(void 0===e?"undefined":_typeof(e))||null===e)throw new TypeError("Object.entries object parameter must be an object");return Object.keys(e).map(function(t){return[t,e[t]]})}}),Object.fromEntries||Object.defineProperty(Object,"fromEntries",{configurable:!0,writable:!0,value:function(e){return Array.from(e).reduce(function(e,t){if(Object(t)!==t)throw new TypeError("Object.fromEntries iterable parameter must yield objects");return t[0]in e?Object.defineProperty(e,t[0],{configurable:!0,enumerable:!0,writable:!0,value:t[1]}):e[t[0]]=t[1],e},{})}}),Object.getOwnPropertyDescriptors||Object.defineProperty(Object,"getOwnPropertyDescriptors",{configurable:!0,writable:!0,value:function(e){if(null==e)throw new TypeError("Object.getOwnPropertyDescriptors object parameter is null or undefined");var t=Object(e);return Reflect.ownKeys(t).reduce(function(e,r){var n=Object.getOwnPropertyDescriptor(t,r);return void 0!==n&&(r in e?Object.defineProperty(e,r,{configurable:!0,enumerable:!0,writable:!0,value:n}):e[r]=n),e},{})}}),Object.values||Object.defineProperty(Object,"values",{configurable:!0,writable:!0,value:function(e){if("object"!==(void 0===e?"undefined":_typeof(e))||null===e)throw new TypeError("Object.values object parameter must be an object");return Object.keys(e).map(function(t){return e[t]})}}),String.prototype.padStart||Object.defineProperty(String.prototype,"padStart",{configurable:!0,writable:!0,value:function(t,r){if(null==this)throw new TypeError("String.prototype.padStart called on null or undefined");var n=String(this),a=n.length,i=Number.parseInt(t,10);return i<=a?n:e(i-a,r)+n}}),String.prototype.padEnd||Object.defineProperty(String.prototype,"padEnd",{configurable:!0,writable:!0,value:function(t,r){if(null==this)throw new TypeError("String.prototype.padEnd called on null or undefined");var n=String(this),a=n.length,i=Number.parseInt(t,10);return i<=a?n:n+e(i-a,r)}}),String.prototype.trimStart||Object.defineProperty(String.prototype,"trimStart",{configurable:!0,writable:!0,value:function(){if(null==this)throw new TypeError("String.prototype.trimStart called on null or undefined");return t(this,"start")}}),String.prototype.trimLeft||Object.defineProperty(String.prototype,"trimLeft",{configurable:!0,writable:!0,value:function(){if(null==this)throw new TypeError("String.prototype.trimLeft called on null or undefined");return t(this,"start")}}),String.prototype.trimEnd||Object.defineProperty(String.prototype,"trimEnd",{configurable:!0,writable:!0,value:function(){if(null==this)throw new TypeError("String.prototype.trimEnd called on null or undefined");return t(this,"end")}}),String.prototype.trimRight||Object.defineProperty(String.prototype,"trimRight",{configurable:!0,writable:!0,value:function(){if(null==this)throw new TypeError("String.prototype.trimRight called on null or undefined");return t(this,"end")}})}(),function(){function _random(){var e=void 0,t=void 0;switch(arguments.length){case 0:throw new Error("_random called with insufficient parameters");case 1:e=0,t=arguments[0];break;default:e=arguments[0],t=arguments[1]}if(e>t){var r=[t,e];e=r[0],t=r[1]}return Math.floor(_nativeMathRandom()*(t-e+1))+e}function _randomIndex(e,t){var r=void 0,n=void 0;switch(t.length){case 1:r=0,n=e-1;break;case 2:r=0,n=Math.trunc(t[1]);break;default:r=Math.trunc(t[1]),n=Math.trunc(t[2])}return Number.isNaN(r)?r=0:!Number.isFinite(r)||r>=e?r=e-1:r<0&&(r=e+r)<0&&(r=0),Number.isNaN(n)?n=0:!Number.isFinite(n)||n>=e?n=e-1:n<0&&(n=e+n)<0&&(n=e-1),_random(r,n)}function _getCodePointStartAndEnd(e,t){var r=e.charCodeAt(t);if(Number.isNaN(r))return{char:"",start:-1,end:-1};if(r<55296||r>57343)return{char:e.charAt(t),start:t,end:t};if(r>=55296&&r<=56319){var n=t+1;if(n>=e.length)throw new Error("high surrogate without trailing low surrogate");var a=e.charCodeAt(n);if(a<56320||a>57343)throw new Error("high surrogate without trailing low surrogate");return{char:e.charAt(t)+e.charAt(n),start:t,end:n}}if(0===t)throw new Error("low surrogate without leading high surrogate");var i=t-1,o=e.charCodeAt(i);if(o<55296||o>56319)throw new Error("low surrogate without leading high surrogate");return{char:e.charAt(i)+e.charAt(t),start:i,end:t}}var _nativeMathRandom=Math.random;Object.defineProperty(Array,"random",{configurable:!0,writable:!0,value:function(e){if("object"!==(void 0===e?"undefined":_typeof(e))||null===e||!Object.prototype.hasOwnProperty.call(e,"length"))throw new TypeError("Array.random array parameter must be an array or array-lke object");var t=e.length>>>0;if(0!==t){return e[0===arguments.length?_random(0,t-1):_randomIndex(t,Array.prototype.slice.call(arguments,1))]}}}),Object.defineProperty(Array.prototype,"concatUnique",{configurable:!0,writable:!0,value:function(){if(null==this)throw new TypeError("Array.prototype.concatUnique called on null or undefined");var e=Array.from(this);if(0===arguments.length)return e;var t=Array.prototype.reduce.call(arguments,function(e,t){return e.concat(t)},[]),r=t.length;if(0===r)return e;for(var n=Array.prototype.indexOf,a=Array.prototype.push,i=0;i<r;++i){var o=t[i];-1===n.call(e,o)&&a.call(e,o)}return e}}),Object.defineProperty(Array.prototype,"count",{configurable:!0,writable:!0,value:function(){if(null==this)throw new TypeError("Array.prototype.count called on null or undefined");for(var e=Array.prototype.indexOf,t=arguments[0],r=Number(arguments[1])||0,n=0;-1!==(r=e.call(this,t,r));)++n,++r;return n}}),Object.defineProperty(Array.prototype,"delete",{configurable:!0,writable:!0,value:function(){if(null==this)throw new TypeError("Array.prototype.delete called on null or undefined");if(0===arguments.length)return[];var e=this.length>>>0;if(0===e)return[];for(var t=Array.prototype.concat.apply([],arguments),r=t.length,n=[],a=0;a<e;++a)for(var i=this[a],o=0;o<r;++o){var s=t[o];if(i===s||i!==i&&s!==s){n.push(a);break}}for(var u=[],l=0,c=n.length;l<c;++l)u[l]=this[n[l]];for(var d=Array.prototype.splice,f=n.length-1;f>=0;--f)d.call(this,n[f],1);return u}}),Object.defineProperty(Array.prototype,"deleteAt",{configurable:!0,writable:!0,value:function(){if(null==this)throw new TypeError("Array.prototype.deleteAt called on null or undefined");if(0===arguments.length)return[];var e=this.length>>>0;if(0===e)return[];for(var t=Array.prototype.splice,r=[].concat(_toConsumableArray(new Set(Array.prototype.concat.apply([],arguments).map(function(t){return t<0?Math.max(0,e+t):t})).values())),n=[].concat(_toConsumableArray(r)).sort(function(e,t){return t-e}),a=[],i=0,o=r.length;i<o;++i)a[i]=this[r[i]];for(var s=0,u=n.length;s<u;++s)t.call(this,n[s],1);return a}}),Object.defineProperty(Array.prototype,"deleteWith",{configurable:!0,writable:!0,value:function(e,t){if(null==this)throw new TypeError("Array.prototype.deleteWith called on null or undefined");if("function"!=typeof e)throw new Error("Array.prototype.deleteWith predicate parameter must be a function");var r=this.length>>>0;if(0===r)return[];for(var n=Array.prototype.splice,a=[],i=[],o=0;o<r;++o)e.call(t,this[o],o,this)&&(i.push(this[o]),a.push(o));for(var s=a.length-1;s>=0;--s)n.call(this,a[s],1);return i}}),Object.defineProperty(Array.prototype,"first",{configurable:!0,writable:!0,value:function(){if(null==this)throw new TypeError("Array.prototype.first called on null or undefined");if(0!=this.length>>>0)return this[0]}}),Object.defineProperty(Array.prototype,"includesAll",{configurable:!0,writable:!0,value:function(){if(null==this)throw new TypeError("Array.prototype.includesAll called on null or undefined");if(1===arguments.length)return Array.isArray(arguments[0])?Array.prototype.includesAll.apply(this,arguments[0]):Array.prototype.includes.apply(this,arguments);for(var e=0,t=arguments.length;e<t;++e)if(!Array.prototype.some.call(this,function(e){return e===this.val||e!==e&&this.val!==this.val},{val:arguments[e]}))return!1;return!0}}),Object.defineProperty(Array.prototype,"includesAny",{configurable:!0,writable:!0,value:function(){if(null==this)throw new TypeError("Array.prototype.includesAny called on null or undefined");if(1===arguments.length)return Array.isArray(arguments[0])?Array.prototype.includesAny.apply(this,arguments[0]):Array.prototype.includes.apply(this,arguments);for(var e=0,t=arguments.length;e<t;++e)if(Array.prototype.some.call(this,function(e){return e===this.val||e!==e&&this.val!==this.val},{val:arguments[e]}))return!0;return!1}}),Object.defineProperty(Array.prototype,"last",{configurable:!0,writable:!0,value:function(){if(null==this)throw new TypeError("Array.prototype.last called on null or undefined");var e=this.length>>>0;if(0!==e)return this[e-1]}}),Object.defineProperty(Array.prototype,"pluck",{configurable:!0,writable:!0,value:function(){if(null==this)throw new TypeError("Array.prototype.pluck called on null or undefined");var e=this.length>>>0;if(0!==e){var t=0===arguments.length?_random(0,e-1):_randomIndex(e,[].concat(Array.prototype.slice.call(arguments)));return Array.prototype.splice.call(this,t,1)[0]}}}),Object.defineProperty(Array.prototype,"pluckMany",{configurable:!0,writable:!0,value:function(e){if(null==this)throw new TypeError("Array.prototype.pluckMany called on null or undefined");var t=this.length>>>0;if(0===t)return[];var r=Math.trunc(e);if(!Number.isInteger(r))throw new Error("Array.prototype.pluckMany want parameter must be an integer");if(r<1)return[];r>t&&(r=t);var n=Array.prototype.splice,a=[],i=t-1;do{a.push(n.call(this,_random(0,i--),1)[0])}while(a.length<r);return a}}),Object.defineProperty(Array.prototype,"pushUnique",{configurable:!0,writable:!0,value:function(){if(null==this)throw new TypeError("Array.prototype.pushUnique called on null or undefined");var e=arguments.length;if(0===e)return this.length>>>0;for(var t=Array.prototype.indexOf,r=Array.prototype.push,n=0;n<e;++n){var a=arguments[n];-1===t.call(this,a)&&r.call(this,a)}return this.length>>>0}}),Object.defineProperty(Array.prototype,"random",{configurable:!0,writable:!0,value:function(){if(null==this)throw new TypeError("Array.prototype.random called on null or undefined");var e=this.length>>>0;if(0!==e){return this[0===arguments.length?_random(0,e-1):_randomIndex(e,[].concat(Array.prototype.slice.call(arguments)))]}}}),Object.defineProperty(Array.prototype,"randomMany",{configurable:!0,writable:!0,value:function(e){if(null==this)throw new TypeError("Array.prototype.randomMany called on null or undefined");var t=this.length>>>0;if(0===t)return[];var r=Math.trunc(e);if(!Number.isInteger(r))throw new Error("Array.prototype.randomMany want parameter must be an integer");if(r<1)return[];r>t&&(r=t);var n=new Map,a=[],i=t-1;do{var o=void 0;do{o=_random(0,i)}while(n.has(o));n.set(o,!0),a.push(this[o])}while(a.length<r);return a}}),Object.defineProperty(Array.prototype,"shuffle",{configurable:!0,writable:!0,value:function(){if(null==this)throw new TypeError("Array.prototype.shuffle called on null or undefined");var e=this.length>>>0;if(0===e)return this;for(var t=e-1;t>0;--t){var r=Math.floor(_nativeMathRandom()*(t+1));if(t!==r){var n=this[t];this[t]=this[r],this[r]=n}}return this}}),Object.defineProperty(Array.prototype,"unshiftUnique",{configurable:!0,writable:!0,value:function(){if(null==this)throw new TypeError("Array.prototype.unshiftUnique called on null or undefined");var e=arguments.length;if(0===e)return this.length>>>0;for(var t=Array.prototype.indexOf,r=Array.prototype.unshift,n=0;n<e;++n){var a=arguments[n];-1===t.call(this,a)&&r.call(this,a)}return this.length>>>0}}),Object.defineProperty(Function.prototype,"partial",{configurable:!0,writable:!0,value:function(){if(null==this)throw new TypeError("Function.prototype.partial called on null or undefined");var e=Array.prototype.slice,t=this,r=e.call(arguments,0);return function(){for(var n=[],a=0,i=0;i<r.length;++i)n.push(r[i]===undefined?arguments[a++]:r[i]);return t.apply(this,n.concat(e.call(arguments,a)))}}}),Object.defineProperty(Math,"clamp",{configurable:!0,writable:!0,value:function(e,t,r){var n=Number(e);return Number.isNaN(n)?NaN:n.clamp(t,r)}}),Object.defineProperty(Math,"easeInOut",{configurable:!0,writable:!0,value:function(e){return 1-(Math.cos(Number(e)*Math.PI)+1)/2}}),Object.defineProperty(Number.prototype,"clamp",{configurable:!0,writable:!0,value:function(){if(null==this)throw new TypeError("Number.prototype.clamp called on null or undefined");if(2!==arguments.length)throw new Error("Number.prototype.clamp called with an incorrect number of parameters");var e=Number(arguments[0]),t=Number(arguments[1]);if(e>t){var r=[t,e];e=r[0],t=r[1]}return Math.min(Math.max(this,e),t)}}),RegExp.escape||function(){var e=/[\\^$*+?.()|[\]{}]/g,t=new RegExp(e.source);Object.defineProperty(RegExp,"escape",{configurable:!0,writable:!0,value:function(r){var n=String(r);return n&&t.test(n)?n.replace(e,"\\$&"):n}})}(),function(){var e=/{(\d+)(?:,([+-]?\d+))?}/g,t=new RegExp(e.source);Object.defineProperty(String,"format",{configurable:!0,writable:!0,value:function(r){function n(e,t,r){if(!t)return e;var n=Math.abs(t)-e.length;if(n<1)return e;var a=String(r).repeat(n);return t<0?e+a:a+e}if(arguments.length<2)return 0===arguments.length?"":r;var a=2===arguments.length&&Array.isArray(arguments[1])?[].concat(_toConsumableArray(arguments[1])):Array.prototype.slice.call(arguments,1);return 0===a.length?r:t.test(r)?(e.lastIndex=0,r.replace(e,function(e,t,r){var i=a[t];if(null==i)return"";for(;"function"==typeof i;)i=i();switch(void 0===i?"undefined":_typeof(i)){case"string":break;case"object":i=JSON.stringify(i);break;default:i=String(i)}return n(i,r?Number.parseInt(r,10):0," ")})):r}})}(),Object.defineProperty(String.prototype,"contains",{configurable:!0,writable:!0,value:function(){if(null==this)throw new TypeError("String.prototype.contains called on null or undefined");return-1!==String.prototype.indexOf.apply(this,arguments)}}),Object.defineProperty(String.prototype,"count",{configurable:!0,writable:!0,value:function(){if(null==this)throw new TypeError("String.prototype.count called on null or undefined");var e=String(arguments[0]||"");if(""===e)return 0;for(var t=String.prototype.indexOf,r=e.length,n=Number(arguments[1])||0,a=0;-1!==(n=t.call(this,e,n));)++a,n+=r;return a}}),Object.defineProperty(String.prototype,"first",{configurable:!0,writable:!0,value:function(){if(null==this)throw new TypeError("String.prototype.first called on null or undefined");return _getCodePointStartAndEnd(String(this),0).char}}),Object.defineProperty(String.prototype,"last",{configurable:!0,writable:!0,value:function(){if(null==this)throw new TypeError("String.prototype.last called on null or undefined");var e=String(this);return _getCodePointStartAndEnd(e,e.length-1).char}}),Object.defineProperty(String.prototype,"splice",{configurable:!0,writable:!0,value:function(e,t,r){if(null==this)throw new TypeError("String.prototype.splice called on null or undefined");var n=this.length>>>0;if(0===n)return"";var a=Number(e);Number.isSafeInteger(a)?a<0&&(a+=n)<0&&(a=0):a=0,a>n&&(a=n);var i=Number(t);(!Number.isSafeInteger(i)||i<0)&&(i=0);var o=this.slice(0,a);return void 0!==r&&(o+=r),a+i<n&&(o+=this.slice(a+i)),o}}),Object.defineProperty(String.prototype,"splitOrEmpty",{configurable:!0,writable:!0,value:function(){if(null==this)throw new TypeError("String.prototype.splitOrEmpty called on null or undefined");return""===String(this)?[]:String.prototype.split.apply(this,arguments)}}),Object.defineProperty(String.prototype,"toLocaleUpperFirst",{configurable:!0,writable:!0,value:function(){if(null==this)throw new TypeError("String.prototype.toLocaleUpperFirst called on null or undefined");var e=String(this),t=_getCodePointStartAndEnd(e,0),r=t.char,n=t.end;return-1===n?"":r.toLocaleUpperCase()+e.slice(n+1)}}),Object.defineProperty(String.prototype,"toUpperFirst",{configurable:!0,writable:!0,value:function(){if(null==this)throw new TypeError("String.prototype.toUpperFirst called on null or undefined");var e=String(this),t=_getCodePointStartAndEnd(e,0),r=t.char,n=t.end;return-1===n?"":r.toUpperCase()+e.slice(n+1)}}),Object.defineProperty(Date.prototype,"toJSON",{configurable:!0,writable:!0,value:function(){return["(revive:date)",this.toISOString()]}}),Object.defineProperty(Function.prototype,"toJSON",{configurable:!0,writable:!0,value:function(){return["(revive:eval)","("+this.toString()+")"]}}),Object.defineProperty(Map.prototype,"toJSON",{configurable:!0,writable:!0,value:function(){return["(revive:map)",[].concat(_toConsumableArray(this))]}}),Object.defineProperty(RegExp.prototype,"toJSON",{configurable:!0,writable:!0,value:function(){return["(revive:eval)",this.toString()]}}),Object.defineProperty(Set.prototype,"toJSON",{configurable:!0,writable:!0,value:function(){return["(revive:set)",[].concat(_toConsumableArray(this))]}}),Object.defineProperty(JSON,"reviveWrapper",{configurable:!0,writable:!0,value:function(e,t){if("string"!=typeof e)throw new TypeError("JSON.reviveWrapper code parameter must be a string");return["(revive:eval)",[e,t]]}}),Object.defineProperty(JSON,"_real_parse",{value:JSON.parse}),Object.defineProperty(JSON,"parse",{configurable:!0,writable:!0,value:function value(text,reviver){return JSON._real_parse(text,function(key,val){var value=val;if(Array.isArray(value)&&2===value.length)switch(value[0]){case"(revive:set)":value=new Set(value[1]);break;case"(revive:map)":value=new Map(value[1]);break;case"(revive:date)":value=new Date(value[1]);break;case"(revive:eval)":try{if(Array.isArray(value[1])){var $ReviveData$=value[1][1];value=eval(value[1][0])}else value=eval(value[1])}catch(e){}}else if("string"==typeof value&&"@@revive@@"===value.slice(0,10))try{value=eval(value.slice(10))}catch(e){}if("function"==typeof reviver)try{value=reviver(key,value)}catch(e){}return value})}}),Object.defineProperty(Array.prototype,"contains",{configurable:!0,writable:!0,value:function(){if(null==this)throw new TypeError("Array.prototype.contains called on null or undefined");return Array.prototype.includes.apply(this,arguments)}}),Object.defineProperty(Array.prototype,"containsAll",{configurable:!0,writable:!0,value:function(){if(null==this)throw new TypeError("Array.prototype.containsAll called on null or undefined");return Array.prototype.includesAll.apply(this,arguments)}}),Object.defineProperty(Array.prototype,"containsAny",{configurable:!0,writable:!0,value:function(){if(null==this)throw new TypeError("Array.prototype.containsAny called on null or undefined");return Array.prototype.includesAny.apply(this,arguments)}}),Object.defineProperty(Array.prototype,"flatten",{configurable:!0,writable:!0,value:function(){if(null==this)throw new TypeError("Array.prototype.flatten called on null or undefined");return Array.prototype.flat.call(this,1/0)}}),Object.defineProperty(String.prototype,"readBracketedList",{configurable:!0,writable:!0,value:function(){if(null==this)throw new TypeError("String.prototype.readBracketedList called on null or undefined");for(var e=new RegExp("(?:\\[\\[((?:\\s|\\S)*?)\\]\\])|([^\"'\\s]\\S*)","gm"),t=[],r=void 0;null!==(r=e.exec(this));)r[1]?t.push(r[1]):r[2]&&t.push(r[2]);return t}})}();var Browser=function(){var e=navigator.userAgent.toLowerCase(),t=e.includes("windows phone"),r=Object.freeze({Android:!t&&e.includes("android"),BlackBerry:/blackberry|bb10/.test(e),iOS:!t&&/ip(?:hone|ad|od)/.test(e),Opera:!t&&("object"===_typeof(window.operamini)||e.includes("opera mini")),Windows:t||/iemobile|wpdesktop/.test(e),any:function(){return r.Android||r.BlackBerry||r.iOS||r.Opera||r.Windows}}),n=!r.Windows&&!/khtml|trident|edge/.test(e)&&e.includes("gecko"),a=!e.includes("opera")&&/msie|trident/.test(e),i=a?function(){var t=/(?:msie\s+|rv:)(\d+\.\d)/.exec(e);return t?Number(t[1]):0}():null,o=e.includes("opera")||e.includes(" opr/"),s=o?function(){var t=new RegExp((/khtml|chrome/.test(e)?"opr":"version")+"\\/(\\d+\\.\\d+)"),r=t.exec(e);return r?Number(r[1]):0}():null,u=e.includes("vivaldi");return Object.freeze({userAgent:e,isMobile:r,isGecko:n,isIE:a,ieVersion:i,isOpera:o,operaVersion:s,isVivaldi:u})}(),Has=function(){var e=function(){try{return"function"==typeof document.createElement("audio").canPlayType}catch(e){}return!1}(),t=e&&function(){try{var e=document.createElement("audio").play();return e.catch(function(){}),e instanceof Promise}catch(e){}return!1}(),r=function(){try{return"Blob"in window&&"File"in window&&"FileList"in window&&"FileReader"in window&&!Browser.isMobile.any()&&(!Browser.isOpera||Browser.operaVersion>=15)}catch(e){}return!1}(),n=function(){try{return"geolocation"in navigator&&"function"==typeof navigator.geolocation.getCurrentPosition&&"function"==typeof navigator.geolocation.watchPosition}catch(e){}return!1}(),a=function(){try{return"MutationObserver"in window&&"function"==typeof window.MutationObserver}catch(e){}return!1}(),i=function(){try{return"performance"in window&&"function"==typeof window.performance.now}catch(e){}return!1}(),o=function(){try{return"ontouchstart"in window||!!window.DocumentTouch&&document instanceof window.DocumentTouch||!!navigator.maxTouchPoints||!!navigator.msMaxTouchPoints}catch(e){}return!1}(),s=function(){try{for(var e=new Map([["transition","transitionend"],["MSTransition","msTransitionEnd"],["WebkitTransition","webkitTransitionEnd"],["MozTransition","transitionend"]]),t=[].concat(_toConsumableArray(e.keys())),r=document.createElement("div"),n=0;n<t.length;++n)if(r.style[t[n]]!==undefined)return e.get(t[n])}catch(e){}return!1}();return Object.freeze({audio:e,audioPromise:t,fileAPI:r,geolocation:n,mutationObserver:a,performance:i,touch:o,transitionEndEvent:s})}(),Visibility=function(){function e(){return Boolean(r&&document[r.hiddenProperty])}function t(){return r&&document[r.stateProperty]||"visible"}var r=function(){try{return Object.freeze([{hiddenProperty:"hidden",stateProperty:"visibilityState",changeEvent:"visibilitychange"},{hiddenProperty:"webkitHidden",stateProperty:"webkitVisibilityState",changeEvent:"webkitvisibilitychange"},{hiddenProperty:"mozHidden",stateProperty:"mozVisibilityState",changeEvent:"mozvisibilitychange"},{hiddenProperty:"msHidden",stateProperty:"msVisibilityState",changeEvent:"msvisibilitychange"}].find(function(e){return e.hiddenProperty in document}))}catch(e){}return null}();return Object.freeze(Object.defineProperties({},{isHidden:{value:e},state:{value:t},hiddenProperty:{value:r.hiddenProperty},stateProperty:{value:r.stateProperty},changeEvent:{value:r.changeEvent}}))}(),_ref3=function(){function e(t){if("object"!==(void 0===t?"undefined":_typeof(t))||null===t)return t;if(t instanceof String)return String(t);if(t instanceof Number)return Number(t);if(t instanceof Boolean)return Boolean(t);if("function"==typeof t.clone)return t.clone(!0);if(t.nodeType&&"function"==typeof t.cloneNode)return t.cloneNode(!0);var r=void 0;return t instanceof Array?r=new Array(t.length):t instanceof Date?r=new Date(t.getTime()):t instanceof Map?(r=new Map,t.forEach(function(t,n){return r.set(n,e(t))})):t instanceof RegExp?r=new RegExp(t):t instanceof Set?(r=new Set,t.forEach(function(t){return r.add(e(t))})):r=Object.create(Object.getPrototypeOf(t)),Object.keys(t).forEach(function(n){return r[n]=e(t[n])}),r}function t(e){for(var t=document.createDocumentFragment(),r=document.createElement("p"),n=void 0;null!==(n=e.firstChild);){if(n.nodeType===Node.ELEMENT_NODE){switch(n.nodeName.toUpperCase()){case"BR":if(null!==n.nextSibling&&n.nextSibling.nodeType===Node.ELEMENT_NODE&&"BR"===n.nextSibling.nodeName.toUpperCase()){e.removeChild(n.nextSibling),e.removeChild(n),t.appendChild(r),r=document.createElement("p");continue}if(!r.hasChildNodes()){e.removeChild(n);continue}break;case"ADDRESS":case"ARTICLE":case"ASIDE":case"BLOCKQUOTE":case"CENTER":case"DIV":case"DL":case"FIGURE":case"FOOTER":case"FORM":case"H1":case"H2":case"H3":case"H4":case"H5":case"H6":case"HEADER":case"HR":case"MAIN":case"NAV":case"OL":case"P":case"PRE":case"SECTION":case"TABLE":case"UL":r.hasChildNodes()&&(t.appendChild(r),r=document.createElement("p")),t.appendChild(n);continue}}r.appendChild(n)}r.hasChildNodes()&&t.appendChild(r),e.appendChild(t)}function r(){try{return document.activeElement||null}catch(e){return null}}function n(e,t,r){var n="object"===(void 0===e?"undefined":_typeof(e))?e:document.getElementById(e);if(null==n)return null;var a=Array.isArray(t)?t:[t];jQuery(n).empty();for(var i=0,o=a.length;i<o;++i)if(Story.has(a[i]))return new Wikifier(n,Story.get(a[i]).processText().trim()),n;if(null!=r){var s=String(r).trim();""!==s&&new Wikifier(n,s)}return n}function a(e,t,r){var n=jQuery(document.createElement("div")),a=jQuery(document.createElement("button")),i=jQuery(document.createElement("pre")),o=L10n.get("errorTitle")+": "+(t||"unknown error");return a.addClass("error-toggle").ariaClick({label:L10n.get("errorToggle")},function(){a.hasClass("enabled")?(a.removeClass("enabled"),i.attr({"aria-hidden":!0,hidden:"hidden"})):(a.addClass("enabled"),i.removeAttr("aria-hidden hidden"))}).appendTo(n),jQuery(document.createElement("span")).addClass("error").text(o).appendTo(n),jQuery(document.createElement("code")).text(r).appendTo(i),i.addClass("error-source").attr({"aria-hidden":!0,hidden:"hidden"}).appendTo(n),n.addClass("error-view").appendTo(e),console.warn(o+"\n\t"+r.replace(/\n/g,"\n\t")),!1}function i(e,t){var r=i;switch(void 0===e?"undefined":_typeof(e)){case"number":if(Number.isNaN(e))return t;break;case"object":if(null===e)return t;if(Array.isArray(e))return e.map(function(e){return r(e,t)}).join(", ");if(e instanceof Set)return[].concat(_toConsumableArray(e)).map(function(e){return r(e,t)}).join(", ");if(e instanceof Map){return"{ "+[].concat(_toConsumableArray(e)).map(function(e){var n=_slicedToArray(e,2),a=n[0],i=n[1];return r(a,t)+" → "+r(i,t)}).join(", ")+" }"}return e instanceof Date?e.toLocaleString():"function"==typeof e.toString?e.toString():Object.prototype.toString.call(e);case"function":case"undefined":return t}return String(e)}return Object.freeze(Object.defineProperties({},{clone:{value:e},convertBreaks:{value:t},safeActiveElement:{value:r},setPageElement:{value:n},throwError:{value:a},toStringOrDefault:{value:i}}))
