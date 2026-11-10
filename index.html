@@ -1478,7 +1478,7 @@ window.fadeStopAllAudio = function (duration) {
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="9" name="Progress check" tags="" position="1100,100" size="100,100">&lt;&lt;fadestopall&gt;&gt;
 &lt;&lt;set _parts = $progress.split(&#39;-&#39;)&gt;&gt;
 &lt;&lt;set _progress_num = Number(_parts[0] + &quot;.&quot; + _parts[1])&gt;&gt;
-&lt;&lt;if _progress_num &gt; $progress_limiter&gt;&gt;
+&lt;&lt;if _progress_num &gt;= $progress_limiter&gt;&gt;
   &lt;&lt;goto &quot;To be continued&quot;&gt;&gt;
 &lt;&lt;else&gt;&gt;
   &lt;&lt;goto $progress&gt;&gt;
