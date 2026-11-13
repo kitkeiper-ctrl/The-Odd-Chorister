@@ -2581,7 +2581,18 @@ Spinning to look at you, Vince activates the symbol.
 
 @@.special-transition;[[Hold on|5-3]]@@</tw-passagedata><tw-passagedata pid="93" name="Make a move on your own" tags="" position="350,1225" size="100,100">You reach for your sticky-note pad for another note, but find it completely blank.  You and your friends only had the time to coordinate the notes you&#39;ve used.
 
-[[Wait for the bell]]</tw-passagedata><tw-passagedata pid="94" name="5-3" tags="" position="475,1225" size="100,100">&lt;&lt;silently&gt;&gt;
+&lt;&lt;silently&gt;&gt;
+&lt;&lt;set _passage = &quot;Rit bell&quot;&gt;&gt;
+&lt;&lt;switch $plan&gt;&gt;
+  &lt;&lt;case &quot;rit&quot;&gt;&gt;
+    &lt;&lt;set _passage = &quot;Rit bell&quot;&gt;&gt;
+  &lt;&lt;case &quot;accel&quot;&gt;&gt;
+    &lt;&lt;set _passage = &quot;Accel bell&quot;&gt;&gt;
+  &lt;&lt;case &quot;repeat&quot;&gt;&gt;
+    &lt;&lt;set _passage = &quot;Repeat bell&quot;&gt;&gt;
+&lt;&lt;/switch&gt;&gt;
+&lt;&lt;/&lt;&lt;silently&gt;&gt;
+[[Wait for the bell|_passage]]</tw-passagedata><tw-passagedata pid="94" name="5-3" tags="" position="475,1225" size="100,100">&lt;&lt;silently&gt;&gt;
   &lt;&lt;set $progress = &quot;5-3&quot;&gt;&gt;
   &lt;&lt;set $notebook[4].isunlocked = true&gt;&gt;
 &lt;&lt;/silently&gt;&gt;
