@@ -104,7 +104,7 @@ var saveAs=saveAs||navigator.msSaveBlob&&navigator.msSaveBlob.bind(navigator)||f
 
 /* --- Global Game Vibe: Plain Black & Bolder White Text --- */
 body {
-  background-color: #000000 !important;
+  background-color: #201814 !important;
   color: #ffffff !important;
   font-family: 'Courier New', Courier, monospace !important;
   font-weight: 550;
@@ -1042,6 +1042,7 @@ Macro.add('type', {
     }
 });
 
+
 window._midiLyricsTimer = null;
 
 window.playMidiLyrics = function (trackId, midiNotes, lyrics, onComplete, delaySeconds) {
@@ -1090,8 +1091,7 @@ window.playMidiLyrics = function (trackId, midiNotes, lyrics, onComplete, delayS
             }
         }
     }, 15);
-};
-</script><tw-passagedata pid="1" name="StoryWidgets" tags="widget" position="100,100" size="100,100">&lt;&lt;widget &quot;playbgm&quot;&gt;&gt;
+};</script><tw-passagedata pid="1" name="StoryWidgets" tags="widget" position="100,100" size="100,100">&lt;&lt;widget &quot;playbgm&quot;&gt;&gt;
     &lt;&lt;silently&gt;&gt;
     &lt;&lt;if SimpleAudio &amp;&amp; SimpleAudio.tracks &amp;&amp; SimpleAudio.tracks.has($args[0])&gt;&gt;
       &lt;&lt;set _track to $args[0]&gt;&gt;
@@ -1418,7 +1418,7 @@ window.playMidiLyrics = function (trackId, midiNotes, lyrics, onComplete, delayS
   &lt;/div&gt; \
   &lt;div class=&quot;title-menu&quot;&gt;
     [[Character Selection]] [[Settings]] 
-    /* [[Test]]  */
+    [[Test]]
     &lt;&lt;if _progress_num &gt;= 1.1&gt;&gt;
       [[Chapter Selection]]
     &lt;&lt;/if&gt;&gt;
@@ -2411,7 +2411,7 @@ Click an image below to draw it on your sticky-note.  See what happens!
   [[Make a plan]]&lt;br&gt;
 &lt;&lt;/if&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;
-
+&lt;br&gt;
 &lt;&lt;link &quot;Try another&quot; &quot;4-2&quot;&gt;&gt;
   &lt;&lt;set $progress = &quot;4-3&quot;&gt;&gt;
 &lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="72" name="4-3 Repeat" tags="" position="225,975" size="100,100">The &lt;em&gt;forward repeat&lt;/em&gt; flashes in your hand, but nothing appears to change around you.  Looking closer at your music binder notebook, you remember that forward repeats only mark a beginning of a section that is repeated.
@@ -2569,7 +2569,7 @@ Vince keeps his focus on the music in front of him.  Finally, you activate your 
 
 [[Coordinate with your friends|Repeat 2]]
 [[Wait for the bell|Repeat bell]]
-[[Make a move on your own]]</tw-passagedata><tw-passagedata pid="91" name="Repeat 2" tags="" position="100,1225" size="100,100">You look over to &lt;&lt; $friend[0].name&gt;&gt;.  They are moving independent of the repeated script you&#39;ve fastened to the scene, though it seems the rest of your classmates are under the spell of the music, singing along with Mr. Coops conducting movements.
+[[Make a move on your own]]</tw-passagedata><tw-passagedata pid="91" name="Repeat 2" tags="" position="100,1225" size="100,100">You look over to &lt;&lt;= $friend[0].name&gt;&gt;.  They are moving independent of the repeated script you&#39;ve fastened to the scene, though it seems the rest of your classmates are under the spell of the music, singing along with Mr. Coops conducting movements.
 
 &lt;&lt;= $friend[1].name&gt;&gt; shows you his watch.  The watch hands rebounding positions around the watch face.  &lt;em&gt;Why is he wearing that?  Does he even know how to read it?&lt;/em&gt;
 
@@ -2584,14 +2584,14 @@ Spinning to look at you, Vince activates the symbol.
 
 &lt;&lt;silently&gt;&gt;
 &lt;&lt;set _passage = &quot;Rit bell&quot;&gt;&gt;
-&lt;&lt;switch $plan&gt;&gt;
-  &lt;&lt;case &quot;rit&quot;&gt;&gt;
-    &lt;&lt;set _passage = &quot;Rit bell&quot;&gt;&gt;
-  &lt;&lt;case &quot;accel&quot;&gt;&gt;
-    &lt;&lt;set _passage = &quot;Accel bell&quot;&gt;&gt;
-  &lt;&lt;case &quot;repeat&quot;&gt;&gt;
-    &lt;&lt;set _passage = &quot;Repeat bell&quot;&gt;&gt;
-&lt;&lt;/switch&gt;&gt;
+  &lt;&lt;switch $plan&gt;&gt;
+    &lt;&lt;case &quot;rit&quot;&gt;&gt;
+      &lt;&lt;set _passage = &quot;Rit bell&quot;&gt;&gt;
+    &lt;&lt;case &quot;accel&quot;&gt;&gt;
+      &lt;&lt;set _passage = &quot;Accel bell&quot;&gt;&gt;
+    &lt;&lt;case &quot;repeat&quot;&gt;&gt;
+      &lt;&lt;set _passage = &quot;Repeat bell&quot;&gt;&gt;
+  &lt;&lt;/switch&gt;&gt;
 &lt;&lt;/silently&gt;&gt;
 [[Wait for the bell|_passage]]</tw-passagedata><tw-passagedata pid="94" name="5-3" tags="" position="475,1225" size="100,100">&lt;&lt;silently&gt;&gt;
   &lt;&lt;set $progress = &quot;5-3&quot;&gt;&gt;
