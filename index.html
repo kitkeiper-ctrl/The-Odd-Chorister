@@ -1396,6 +1396,7 @@ window.playMidiLyrics = function (trackId, midiNotes, lyrics, onComplete, delayS
   {term: &quot;Coda&quot;, definition: &quot;An added ending&quot;, symbol: &quot;images/Coda.png&quot;, isunlocked: false},
   {term: &quot;1st and 2nd Endings&quot;, definition: &quot;Play the first ending the first time through, then play the second ending the next time through&quot;, symbol: &quot;images/EndingsBoth.png&quot;, isunlocked: false}
 ]&gt;&gt;
+&lt;&lt;set $clicked = false&gt;&gt;
 
 &lt;&lt;set $plan = &quot;accel&quot;&gt;&gt;
 &lt;&lt;waitforaudio&gt;&gt;
@@ -1417,9 +1418,14 @@ window.playMidiLyrics = function (trackId, midiNotes, lyrics, onComplete, delayS
     &lt;span class=&quot;recommend&quot;&gt;Headphones Recommended&lt;/span&gt;
   &lt;/div&gt; \
   &lt;div class=&quot;title-menu&quot;&gt;
-    [[Character Selection]] [[Settings]] 
-    [[Test]]
-    &lt;&lt;if _progress_num &gt;= 1.1&gt;&gt;
+    &lt;&lt;if not $clicked&gt;&gt; \
+      &lt;&lt;link &quot;Click to enable sound&quot;&gt;&gt;
+        &lt;&lt;set $clicked = true&gt;&gt;
+        &lt;&lt;goto &quot;Title&quot;&gt;&gt;
+      &lt;&lt;/link&gt;&gt;
+    &lt;&lt;/if&gt;&gt; \
+    [[Character Selection]] [[Settings]] [[Test]]
+    &lt;&lt;if _progress_num &gt;= 1.1&gt;&gt; \
       [[Chapter Selection]]
     &lt;&lt;/if&gt;&gt;
   &lt;/div&gt;
